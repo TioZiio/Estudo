@@ -270,7 +270,6 @@ class JanelaVendas():
             lista = ['0', '0', '0', '0']
             return lista 
         else:
-
             return lista
 
     def Info_Cod_Prod_Vendas(self):
