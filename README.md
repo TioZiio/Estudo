@@ -1,4 +1,10 @@
 # Estudo
-Aprendendo como utilizar github para auxilir projetos open source futuamente.
+Meu nome é David Mendes, sou estudante de programação e estou cursando Tecnólogo em Segurança da Informação.
+Atualmente estou no 3° semestre e formo por volta de 08/2025.
 
-  Todos os mini projetos aqui colocados, tem como objetivo treinar programação e tornar mais clen o codigo.
+Meus estudos estão sendo focados para backend e analise de dados, com visão de trabalhar nestas áreas.
+Todos os projetos aqui colocados, tem como objetivo treinar programação e alcançar o clen code.
+
+Objetivo:
+
+	1. Aprender a utilizar github para auxilir projetos open source futuramente.
