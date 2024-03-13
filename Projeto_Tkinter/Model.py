@@ -12,12 +12,10 @@ class Main_db():
         db = 'clientes.db'
         self.conn = sqlite3.connect(db)
         self.cursor = self.conn.cursor()
-        print('Login')
-
+        
     def Desconecta_db(self):
         self.cursor.close()
-        print('Logout')
-
+        
     def Monta_Tabela_Vendas(self):
         self.Conecta_db()
         self.cursor.execute("""
@@ -55,6 +53,7 @@ class Main_db():
             return nome_cliente[0][0]
         except (TypeError, IndexError) as error:
             print(f'Erro!! {error}')
+            self.Desconecta_db()
             return False
 
     def Func_Select_Lista(self, verificar=True):
