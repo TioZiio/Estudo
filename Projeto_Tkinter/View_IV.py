@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import Control
 import Model
+import View_C
 
 class Create():
     def __init__(self, root):
@@ -13,9 +14,9 @@ class Create():
         self.root.geometry("1000x650")
         self.root.resizable(False, False)
 
-    def Func_Criar_Caixas(self, relx, rely, relwidth, relheight):
+    def Func_Criar_Caixas(self, relx, rely, relwidth, relheight, root):
         # Função que cria os Conteiners para armazenar os Botões, Labels e Entrys.
-        caixa = tk.Frame(self.root, bd=4, bg="#B0C4DE", 
+        caixa = tk.Frame(root, bd=4, bg="#B0C4DE", 
                          highlightbackground="#191970", highlightthickness=2)
         caixa.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
         return caixa
@@ -36,14 +37,14 @@ class Create():
         entry.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
         return entry
 
-    def Func_Criar_Cabecario_lista(self, valor, rotulo):
-        frame = '.!frame3.!treeview'
-        self.Lista_Treeview = self.root.nametowidget(frame)
+    def Func_Criar_Cabecario_lista(self, valor, rotulo, frame='.!frame3.!treeview'):
+        frame_local = frame
+        self.Lista_Treeview = self.root.nametowidget(frame_local)
         self.Lista_Treeview.heading(valor, text=rotulo, anchor=tk.CENTER)
 
-    def Func_Criar_Colunas_Lista(self, valor, tamanho):
-        frame = '.!frame3.!treeview'
-        self.Lista_Treeview = self.root.nametowidget(frame)
+    def Func_Criar_Colunas_Lista(self, valor, tamanho, frame='.!frame3.!treeview'):
+        frame_local = frame
+        self.Lista_Treeview = self.root.nametowidget(frame_local)
         self.Lista_Treeview.column(valor, width=tamanho, anchor=tk.CENTER)
 
     def Func_Erro_Dados(self, root, frase="Dados inseridos Incorretamente."):
@@ -65,18 +66,19 @@ class Create():
                 self.Info_Labls_Inicial_Erro()
 
     def ToolBar(self):
+        self.cadastro = View_C.Tela_Cadastro(self.root)
         self.menubar = tk.Menu(self.root)
         self.root.config(menu=self.menubar)
         self.menutool_Opcao = tk.Menu(self.menubar)
         self.menubar.add_cascade(label="Opções", menu=self.menutool_Opcao)
 
-        self.menutool_Opcao.add_command(label="Tela Clientes")
-        self.menutool_Opcao.add_command(label="Tela Vendas", command=self.Organiza_Funcs_Vendas)
+        self.menutool_Opcao.add_command(label="Tela Clientes", command=self.cadastro.Organiza_Funcs_Cadastro)
+        self.menutool_Opcao.add_command(label="Tela Vendas")
         self.menutool_Opcao.add_command(label="Quit", command=self.root.quit) 
 
 class Infos():        
     def Tela_Inicial(self):
-        self.caixa0 = self.Func_Criar_Caixas(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.3)
+        self.caixa0 = self.Func_Criar_Caixas(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.3, root=self.root)
         
     def Info_Labls_Inicial(self):
         # Informações para criar as Labls da Tela de Login.
@@ -107,11 +109,17 @@ class Infos():
 
     def Tela_Vendas(self):
         # Conteiner 1
-        self.caixa1 = self.Func_Criar_Caixas(relx=0.02, rely=0.02, relwidth=0.65, relheight=0.3)
+        self.caixa1 = self.Func_Criar_Caixas(
+            relx=0.02, rely=0.02, relwidth=0.65, relheight=0.3, root=self.root
+        )
         # Conteiner 2
-        self.caixa2 = self.Func_Criar_Caixas(relx=0.02, rely=0.35, relwidth=0.96, relheight=0.6)
+        self.caixa2 = self.Func_Criar_Caixas(
+            relx=0.02, rely=0.35, relwidth=0.96, relheight=0.6, root=self.root
+        )
         # Conteiner 3
-        self.caixa3 = self.Func_Criar_Caixas(relx=0.7, rely=0.02, relwidth=0.28, relheight=0.3)
+        self.caixa3 = self.Func_Criar_Caixas(
+            relx=0.7, rely=0.02, relwidth=0.28, relheight=0.3, root=self.root
+        )
 
     def Info_Labls_Vendas(self):
         # Informações para criar as Labels da Tela de Vendas.
@@ -150,16 +158,15 @@ class Infos():
             self.quant_entrys.append(entry)
 
     def Info_Btoes_Vendas(self):
-        self.banco = Model.Main_db(self.root)
         botoes_info = [
             (self.caixa1, "Limpar Tela", 0.51, 0.05, 0.13, 0.15, 
                 lambda: self.controle.Limpar_entrys()),
             (self.caixa1, "Adicionar", 0.64, 0.05, 0.13, 0.15, 
-                lambda: self.Atualiza_db(value='add', verificar=True)),
+                lambda: self.controle.Atualiza_db(value='add', verificar=True)),
             (self.caixa1, "Alterar", 0.77, 0.05, 0.1, 0.15, 
-                lambda: self.Atualiza_db(value='alt', verificar=False)),
+                lambda: self.controle.Atualiza_db(value='alt', verificar=True)),
             (self.caixa1, "Apagar", 0.87, 0.05, 0.1, 0.15, 
-                lambda: self.Atualiza_db(value='del', verificar=False))
+                lambda: self.controle.Atualiza_db(value='del', verificar=True))
         ]
         for info in botoes_info:
             botao = self.Func_Criar_Bt(*info)
@@ -196,30 +203,11 @@ class Organiza_Funcs_IV(Create, Infos):
     def Organiza_Funcs_Vendas(self):
         self.Tela_Vendas()
         self.ToolBar()
+        self.Info_Labls_Vendas()
         self.Info_Entrys_Vendas()
         self.controle = Control.Controller(self.root, entrys=self.quant_entrys)
-        self.controle.Func_Criar_Treeview()
         self.Info_Btoes_Vendas()
-        self.Info_Labls_Vendas()
+        self.controle.Func_Criar_Treeview()
         self.Info_Cabecario_Vendas()
         self.Info_Colunas_Vendas()
         self.controle.Atualiza_TreeView(verificar=True)
-        self.controle.vizualizador_widget()
-
-    def Atualiza_db(self, value, verificar):
-        dados_v, dados = self.controle.Processamento_dados_venda_2(verificar)
-        if dados_v == True:
-            if value == 'add':
-                self.banco.Adicionar_db_vendas(dados)
-                self.controle.Atualiza_TreeView(verificar=True)
-                self.controle.Limpar_entrys()
-            elif value == 'alt':
-                self.banco.Alterar_db_vendas(dados)
-                self.controle.Atualiza_TreeView(verificar=True)
-                self.controle.Limpar_entrys()
-            elif value == 'del':
-                self.banco.Apagar_db_vendas(dados)
-                self.controle.Atualiza_TreeView(verificar=True)
-                self.controle.Limpar_entrys()
-        else:
-            self.Func_Erro_Dados(self.root)
