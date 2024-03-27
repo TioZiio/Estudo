@@ -21,7 +21,7 @@ class Main():
 
     def Organiza_funcs(self):
         self.create.Janela(self.root)
-        self.login.Organiza_Funcs_Login()
+        self.cadastro.Organiza_Funcs_Cadastro()
 
 if __name__ == "__main__":
     Main()

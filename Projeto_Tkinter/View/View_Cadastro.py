@@ -27,15 +27,16 @@ class Infos_Cadastro():
 
     def Info_Btoes_Cadastro(self):
         botoes_info = [
-            (self.caixa1, "Buscar", 0.15, 0.05, 0.1, 0.15),
+            (self.caixa1, "Buscar", 0.15, 0.05, 0.1, 0.15,
+                lambda: self.controle.buscar_cadastro()),
             (self.caixa1, "Limpar Tela", 0.25, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Limpar_entrys()),
+                lambda: self.controle.Limpar_entrys(typlabel='.!toplevel.!frame.!label')),
             (self.caixa1, "Adicionar", 0.45, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Atualiza_db_cadastro(value='add')),
-            (self.caixa1, "Alterar", 0.55, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Atualiza_db_cadastro(value='alt')),
+                lambda: self.controle.Atualiza_db_cadastro(typFunc='add')),
+            (self.caixa1, "Alterar", 0.55, 0.05, 0.1, 0.15,
+                lambda: self.controle.Atualiza_db_cadastro(typFunc='alt')),
             (self.caixa1, "Apagar", 0.65, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Atualiza_db_cadastro(value='del'))
+                lambda: self.controle.Atualiza_db_cadastro(typFunc='del'))
         ]
         for info in botoes_info:
             self.create.Func_Criar_Bt(*info)
@@ -65,7 +66,7 @@ class Infos_Cadastro():
             entry = self.create.Func_Criar_Entry(self.caixa1, *info)
             self.quant_entrys.append(entry)
 
-    def verificador_treeview(self, value):
+    def verificador_treeview(self, typFrame):
         valores = ['','2', '3', '4', '5', '6', '7', '8', '9', '10']
         for n in valores:
             try:
@@ -74,15 +75,15 @@ class Infos_Cadastro():
                 if frame_lista:
                     break
             except Exception as er:
-                print(f'passou aki, {n}')
+                print(f'Log Verificador: {n}')
                 pass
-        if value == 'frame':
+        if typFrame == 'frame':
             return frame_lista
-        elif value == 'treeview':
+        elif typFrame == 'treeview':
             return frame
 
     def recebe_treeview(self):
-        frame_local = self.verificador_treeview(value='treeview')
+        frame_local = self.verificador_treeview(typFrame='treeview')
         frame_local = frame_local + '.!treeview'
         frame_real = self.root.nametowidget(frame_local)
         return frame_real
