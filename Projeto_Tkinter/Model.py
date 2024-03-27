@@ -44,14 +44,14 @@ class Main_db():
             nome_cliente = self.cursor.fetchall()
             return nome_cliente[0][0]
         except (TypeError, IndexError) as error:
-            print(f'Erro!! {error}')
+            print(f'Log Puxar_nome: {error}')
             return False
 
     def Func_Select_Lista(self, typTela):
         # Função que atualiza e mostra os dados dentro da Lista.
         if typTela == 'vendas':
             dados = self.cursor.execute(
-                """SELECT * FROM vendas ORDER BY cod_venda DESC;"""
+                """SELECT * FROM vendas ORDER BY data DESC;"""
             )
         else:
             dados = self.cursor.execute("""SELECT * FROM clients ORDER BY nome ASC;""")
@@ -67,7 +67,12 @@ class Main_db():
             query = """INSERT INTO vendas (
                 cod_produto, nome_produto, valor_venda, cod_cliente, nome_cliente, data
             ) VALUES (?, ?, ?, ?, ?, ?)"""
-            self.Organiza_query_db(query, dados)
+            valores = (
+                dados['Cod Produto'], dados['Nome Produto'],
+                dados['Valor'], dados['Cod Cliente'],
+                dados['Nome Cliente'], dados['Data']
+            )
+            self.Organiza_query_db(query, valores)
         except Exception as erro:
             print(f'Erro add Vendas: {erro}')
 
@@ -79,23 +84,41 @@ class Main_db():
                 cod_cliente = ?, nome_cliente = ?, data = ?
                 WHERE cod_venda = ?
             """
-            new_dados = dados[6][0]
-            dados[6] = new_dados
-            self.Organiza_query_db(query, dados)
+            valores = (
+                dados['Cod Produto'], dados['Nome Produto'],
+                dados['Valor'], dados['Cod Cliente'],
+                dados['Nome Cliente'], dados['Data'], dados['Cod Venda']
+            )
+            self.Organiza_query_db(query, valores)
         except Exception as erro:
             print(f'Erro alt Vendas: {erro}')
 
     def Apagar_db_vendas(self, dados):
         try:
             query = """DELETE FROM vendas WHERE cod_venda = ?"""
-            self.Organiza_query_db(query, dados[6])
+            self.Organiza_query_db(query, [dados['Cod Venda']])
         except Exception as erro:
             print(f'Erro del Vendas: {erro}')
+
+    def buscar_db_cadastro(self, coluna, pesquisa):
+        try:
+            print(coluna)
+            print(type(coluna))
+            print(pesquisa)
+            print(type(pesquisa))
+            self.cursor.execute(f"SELECT * FROM clients WHERE {coluna} LIKE ? ORDER BY nome ASC", (pesquisa,))
+            buscar_coluna = self.cursor.fetchall()
+            return buscar_coluna
+        except Exception as erro:
+            print(f'Erro busc Cadatro: {erro}')
 
     def Adicionar_db_cadastro(self, dados):
         try:
             query = """INSERT INTO clients (nome, telefone, endereco, cidade) VALUES (?, ?, ?, ?)"""
-            self.Organiza_query_db(query, dados)
+            valores = (
+                dados['Nome Cliente'], dados['Telefone'], dados['Endereço'], dados['Cidade']
+            )
+            self.Organiza_query_db(query, valores)
         except Exception as erro:
             print(f'Erro add Cadastro: {erro}')
             
@@ -106,16 +129,17 @@ class Main_db():
                 SET nome = ?, telefone = ?, endereco = ?, cidade = ?
                 WHERE codigo = ?
             """
-            variavel_local = dados[4][0]
-            dados.pop(4)
-            dados.append(variavel_local)
-            self.Organiza_query_db(query, dados)
+            valores = (
+                dados['Nome Cliente'], dados['Telefone'],
+                dados['Endereço'], dados['Cidade'], dados['Cod Cliente']
+            )
+            self.Organiza_query_db(query, valores)
         except Exception as erro:
             print(f'Erro alt Cadastro: {erro}')
 
     def Apagar_db_cadastro(self, dados):
         try:
             query = """DELETE FROM clients WHERE codigo = ?"""
-            self.Organiza_query_db(query, dados[4])
+            self.Organiza_query_db(query, [dados['Cod Cliente']])
         except Exception as erro:
             print(f'Erro del Cadastro: {erro}')

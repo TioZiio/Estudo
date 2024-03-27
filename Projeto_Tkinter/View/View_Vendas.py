@@ -29,6 +29,7 @@ class Infos_Vendas():
         # Variavel rotulos_info recebe respectivamente (caixa, nome, relx, rely)
         fonte = ('Arial', 14)
         rotulos_info = [
+            (self.caixa1, "", 0.9, 0.2),
             (self.caixa1, "Cod. Venda", 0.02, 0.02),
             (self.caixa1, "Cod. Produto", 0.02, 0.3, 0.13),
             (self.caixa1, "Valor", 0.25, 0.3),
@@ -65,11 +66,11 @@ class Infos_Vendas():
             (self.caixa1, "Limpar Tela", 0.51, 0.05, 0.13, 0.15, 
                 lambda: self.controle.Limpar_entrys()),
             (self.caixa1, "Adicionar", 0.64, 0.05, 0.13, 0.15, 
-                lambda: self.controle.Atualiza_db_vendas(value='add')),
+                lambda: self.controle.Atualiza_db_vendas(typFunc='add')),
             (self.caixa1, "Alterar", 0.77, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Atualiza_db_vendas(value='alt')),
+                lambda: self.controle.Atualiza_db_vendas(typFunc='alt')),
             (self.caixa1, "Apagar", 0.87, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Atualiza_db_vendas(value='del')),
+                lambda: self.controle.Atualiza_db_vendas(typFunc='del')),
             (self.caixa1, "Clientes Help", 0.7, 0.8, 0.25, 0.15, 
                 lambda: self.cadastro.Organiza_Funcs_Cadastro())
         ]

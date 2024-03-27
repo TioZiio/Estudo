@@ -5,6 +5,7 @@ from View import View_Cadastro
 import Model
 import tkinter as tk
 from tkinter import ttk
+from datetime import datetime
 
 class Control():
     def __init__(self, root, entrys):
@@ -20,13 +21,26 @@ class Control():
         return frame
 
     def Puxa_dados(self):
-        dados = []
-        for n in self.entrys:
-            dados.append(n.get().upper().strip())
+        dados = {}
+        if len(self.entrys) == 4:
+            dados = {
+                'Cod Venda': self.entrys[0].get().upper().strip(),
+                'Cod Produto': self.entrys[1].get().upper().strip(),
+                'Valor' : self.entrys[2].get().upper().strip(),
+                "Cod Cliente": self.entrys[3].get().upper().strip()
+            }
+        if len(self.entrys) == 5:
+            dados = {
+                'codigo': self.entrys[0].get().upper().strip(),
+                'nome': self.entrys[1].get().upper().strip(),
+                'telefone': self.entrys[2].get().upper().strip(),
+                'endereco': self.entrys[3].get().upper().strip(),
+                'cidade': self.entrys[4].get().upper().strip()
+            }
         return dados
 
     def Func_Validar_user(self):
-        dados = self.Puxa_dados()
+        dados = [[],[]]
         dados[0] = 'david'; dados[1] = '123'
         if not dados[0] and not dados[1]:
             self.create.Info_Labls_Login_Erro()
@@ -38,28 +52,27 @@ class Control():
                 self.create.Info_Labls_Login_Erro()
 
     def Data(self):
-        from datetime import datetime
         data = datetime.now().strftime('%d/%m')
         return data
 
     def Limpar_entrys(self):
-        import tkinter as tk
         # Limpa as Entrys da Tela Cadastro.
         for entry in self.entrys:
             entry.delete(0, tk.END)
 
-    def Limpa_label5(self):
-        variavel_local = self.Transform_frames(frame='.!frame2')
-        for n in range(5,25):
-            try: 
-                if f'!label{n}' in variavel_local.children:
-                    variavel_local = self.Transform_frames(f'.!frame2.!label{n}')
-                    variavel_local.destroy()
+    def Limpa_label5(self, typlabel='.!frame2.!label'):
+        valores = ['6','7','8','9','10']
+        for n in valores:
+            try:
+                x = label + n
+                frame = self.Transform_frames(x)
+                if frame.winfo_exists():
+                    frame.destroy()
                     break
                 else:
                     break
-            except Exception as error:
-                print(f'Erro: {error}')
+            except Exception as err:
+                print(f'Log: Label {err} já destruida')
                 pass
 
     def Func_Criar_Treeview(self, typTela=''):
@@ -72,7 +85,7 @@ class Control():
                 )
             )
         else:
-            self.frame_lista = self.cadastro.verificador_treeview(value='frame')
+            self.frame_lista = self.cadastro.verificador_treeview(typFrame='frame')
             self.Lista_Treeview = ttk.Treeview(
                 self.frame_lista, height=3, column=("Cod CLIENTE", "NOME", "TELEFONE", "EENDEREÇO", "CIDADE")
             )
@@ -117,95 +130,91 @@ class Control():
                 "", tk.END, values=(row[0], row[1], row[2], row[3], row[4])
                 )
 
-    def Processamento_dados(self):
-        dados_1 = self.Puxa_dados()
-        variavel_cod_venda = dados_1[0]
-        dados_1.pop(0)
-        if len(dados_1) == 3:
-            if ',' in dados_1[1]:
-                    alt = dados_1[1].replace(",", ".").strip()
-                    dados_1[1] = alt
-            if dados_1[0] == '' or dados_1[2] == '' or int(dados_1[0]) > 6:
-                return [0, 0]
-            if dados_1[1] == '':
-                dados_1[1] = '0'
-            return [dados_1, variavel_cod_venda]
-        elif len(dados_1) == 4:
-            if dados_1[0] == '' or dados_1[1] == '':
-                return [0, 0]
-            else:
-                return [dados_1, variavel_cod_venda]
-        else:
-            print('Deu erro no process 1')   
-
-    def Processamento_dados_venda(self, tipoFunc):
-        dados_2, variavel_cod_venda = self.Processamento_dados()
-        if dados_2 == 0 and variavel_cod_venda == 0:
-            return [False, 0]
-        else:
-            dados_2.insert(1, self.vendas.Info_Cod_Produto(dados_2[0]))
-            variavel_local = self.banco.Puxa_nome(dados_2[3])
-            if variavel_local == False:
+    def Processamento_dados_venda(self):
+        try:    
+            dados_vendas = self.Puxa_dados()
+            if dados_vendas['Valor'] == '':
+                dados_vendas['Valor'] = '0'
+            if ',' in dados_vendas['Valor']:
+                alt = dados_vendas['Valor'].replace(',', '.').strip()
+                dados_vendas['Valor'] = alt
+            if dados_vendas['Cod Produto'] == '' or int(dados_vendas['Cod Produto']) > 6:
                 return [False, 0]
+            if dados_vendas['Cod Cliente'] == '':
+                return [False, 0]
+            dados_vendas['Nome Produto'] = self.vendas.Info_Cod_Produto(dados_vendas['Cod Produto'])
+            if bool(self.banco.Puxa_nome(dados_vendas['Cod Cliente'])):
+                dados_vendas['Nome Cliente'] = self.banco.Puxa_nome(dados_vendas['Cod Cliente'])
             else:
-                dados_2.append(self.banco.Puxa_nome(dados_2[3]))
-                dados_2.append(self.Data())
-                self.Limpa_label5()
-                if tipoFunc == "add":
-                    return [True, dados_2]
-                elif tipoFunc == "alt" or tipoFunc == "del":
-                    dados_2.append([variavel_cod_venda])
-                    return [True, dados_2]
+                return [False, 0]
+            dados_vendas['Data'] = self.Data()
+            return [True, dados_vendas]
+        except Exception as err:
+            print(f'Log: erro no Processamento de dados\n{err}')
 
-    def Processamento_dados_cadastro(self, tipoFunc):
-        dados_2, variavel_cod_venda = self.Processamento_dados()
-        if dados_2 == 0 and variavel_cod_venda == 0:
+    def Processamento_dados_cadastro(self):
+        dados_cadastro = self.Puxa_dados()
+        if dados_cadastro['nome'] == '' and dados_cadastro['telefone'] == '':
             return [False, 0]
-        else:
-            self.Limpa_label5
-            if tipoFunc == "add":
-                return [True, dados_2]
-            elif tipoFunc == "alt" or tipoFunc == "del":
-                dados_2.append([variavel_cod_venda])
-                return [True, dados_2]
+        if dados_cadastro['endereco'] == '':
+            dados_cadastro['endereco'] = 'ENDEREÇO NÃO INSERIDO'
+        if dados_cadastro['cidade'] == '':
+            dados_cadastro['cidade'] = 'CIDADE NÃO INSERIDA'
+        return [True, dados_cadastro]
 
-    def Atualiza_db_vendas(self, value):
-        dados_v, dados = self.Processamento_dados_venda(value)
+    def buscar_cadastro(self):
+        self.Lista_Treeview.delete(*self.Lista_Treeview.get_children())
+        buscar_dados = self.Puxa_dados()
+        coluna = '' ; pesquisa = 'nome'
+        for info in buscar_dados.keys():
+            if buscar_dados[info] != '':
+                coluna = info
+                pesquisa = f'{buscar_dados[info]}%'
+        dados = self.banco.buscar_db_cadastro(coluna=coluna, pesquisa=pesquisa)
+        print(dados)
+
+    def Atualiza_db_vendas(self, typFunc):
+        verificador, dados = self.Processamento_dados_venda()
         treeview = '!frame3.!treeview'
-        if dados_v == True:
-            if value == 'add':
+        if verificador == True:
+            if typFunc == 'add':
                 self.banco.Adicionar_db_vendas(dados)
                 self.Atualiza_TreeView(typTela='vendas', frame=treeview)
                 self.Limpar_entrys()
-            elif value == 'alt':
+            elif typFunc == 'alt':
                 self.banco.Alterar_db_vendas(dados)
                 self.Atualiza_TreeView(typTela='vendas', frame=treeview)
                 self.Limpar_entrys()
-            elif value == 'del':
+            elif typFunc == 'del':
                 self.banco.Apagar_db_vendas(dados)
                 self.Atualiza_TreeView(typTela='vendas', frame=treeview)
                 self.Limpar_entrys()
         else:
             self.create.Func_Erro_Dados(self.root, frase='Cod Produto ou cliente não Cadastrado')
 
-    def Atualiza_db_cadastro(self, value):
-        dados_v, dados = self.Processamento_dados_cadastro(value)
+    def Atualiza_db_cadastro(self, typFunc):
+        dados_v, dados = self.Processamento_dados_cadastro()
         treeview = self.cadastro.recebe_treeview()
         if dados_v == True:
-            if value == 'add':
+            if typFunc == 'add':
                 self.banco.Adicionar_db_cadastro(dados)
                 self.Atualiza_TreeView(frame=treeview)
                 self.Limpar_entrys()
-            elif value == 'alt':
+                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
+            elif typFunc == 'alt':
                 self.banco.Alterar_db_cadastro(dados)
                 self.Atualiza_TreeView(frame=treeview)
                 self.Limpar_entrys()
-            elif value == 'del':
+                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
+            elif typFunc == 'del':
                 self.banco.Apagar_db_cadastro(dados)
                 self.Atualiza_TreeView(frame=treeview)
                 self.Limpar_entrys()
+                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
         else:
-            self.create.Func_Erro_Dados(self.root, frase='Cod Produto ou cliente não Cadastrado')
+            self.create.Func_Erro_Dados(
+                self.root, frame='.!toplevel.!frame',frase='Cod Produto ou cliente não Cadastrado'
+            )
 
     def vizualizador_widget(self):
         print('----------------------------------------------')
