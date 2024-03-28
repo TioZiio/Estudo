@@ -30,7 +30,7 @@ class Infos_Cadastro():
             (self.caixa1, "Buscar", 0.15, 0.05, 0.1, 0.15,
                 lambda: self.controle.buscar_cadastro()),
             (self.caixa1, "Limpar Tela", 0.25, 0.05, 0.1, 0.15, 
-                lambda: self.controle.Limpar_entrys(typlabel='.!toplevel.!frame.!label')),
+                lambda: self.controle.Limpar_entrys()),
             (self.caixa1, "Adicionar", 0.45, 0.05, 0.1, 0.15, 
                 lambda: self.controle.Atualiza_db_cadastro(typFunc='add')),
             (self.caixa1, "Alterar", 0.55, 0.05, 0.1, 0.15,
@@ -116,4 +116,4 @@ class Infos_Cadastro():
         self.Info_Cabecario_Cadastro()
         self.Info_Colunas_Cadastro()
         frame = self.recebe_treeview()
-        self.controle.Atualiza_TreeView(frame=frame)
+        self.controle.Atualiza_TreeView(frame=frame, typTela='cadastro')

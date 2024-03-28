@@ -1,8 +1,5 @@
 import tkinter as tk
-from View import Create_visual
-from View import View_Login
-from View import View_Vendas
-from View import View_Cadastro
+from View import Create_visual,View_Login,View_Vendas,View_Cadastro
 import Model
 
 root = tk.Tk()
@@ -14,14 +11,14 @@ class Main():
         self.login = View_Login.Infos_Login(self.root)
         self.vendas = View_Vendas.Infos_Vendas(self.root)
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
-        self.banco = Model.Main_db(self.root)
+        self.banco = Model.Main_db()
         self.Organiza_funcs()
         self.root.mainloop()
         self.banco.Desconecta_db()
 
     def Organiza_funcs(self):
         self.create.Janela(self.root)
-        self.cadastro.Organiza_Funcs_Cadastro()
+        self.login.Organiza_Funcs_Login()
 
 if __name__ == "__main__":
     Main()

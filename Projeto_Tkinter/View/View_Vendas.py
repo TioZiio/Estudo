@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from View import Create_visual
-from View import View_Cadastro
+from View import Create_visual,View_Cadastro
 import Control
 
 class Infos_Vendas():

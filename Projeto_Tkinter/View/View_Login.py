@@ -36,9 +36,6 @@ class Infos_Login():
             (self.caixa0, "Validar", 0.3, 0.8, 0.4, 0.1, lambda: self.controle.Func_Validar_user())]
         self.create.Func_Criar_Bt(*info[0])
 
-    def Info_Labls_Login_Erro(self):
-        self.create.Func_Criar_Lb(self.caixa0, text='Usuario ou senha Inválido', relx=0.3, rely=0.0, fg='red')
-
     def Organiza_Funcs_Login(self):
         self.Tela_Login()
         self.Info_Entrys_Login()
