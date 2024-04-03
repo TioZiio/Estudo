@@ -1,8 +1,7 @@
 import sqlite3
 
 class Main_db():
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
         db = 'clientes.db'
         self.conn = sqlite3.connect(db)
         self.cursor = self.conn.cursor()
@@ -47,20 +46,29 @@ class Main_db():
             print(f'Log Puxar_nome: {error}')
             return False
 
-    def Func_Select_Lista(self, typTela):
+    def Func_Select_Lista(self, typTela='cadastro', query=None):
         # Função que atualiza e mostra os dados dentro da Lista.
         if typTela == 'vendas':
             dados = self.cursor.execute(
                 """SELECT * FROM vendas ORDER BY data DESC;"""
             )
-        else:
+            variavel_local = [n for n in dados]
+            return variavel_local
+        elif typTela == 'cadastro':
             dados = self.cursor.execute("""SELECT * FROM clients ORDER BY nome ASC;""")
-        variavel_local = [n for n in dados]
-        return variavel_local
+            variavel_local = [n for n in dados]
+            return variavel_local
+        else:
+            print('Log Erro Func_Select_Lista')
 
-    def Organiza_query_db(self, query, parametros):
-        self.cursor.execute(query, parametros)
-        self.conn.commit()
+    def Organiza_query_db(self, query, parametros, typTela='vendas'):
+        if typTela == 'vendas':
+            self.cursor.execute(query, parametros)
+            self.conn.commit()
+        elif typTela == 'relatorio':
+            self.cursor.execute(query, parametros)
+            dados = self.cursor.fetchall()
+            return dados            
 
     def Adicionar_db_vendas(self, dados):
         try:
@@ -102,21 +110,19 @@ class Main_db():
 
     def buscar_db_cadastro(self, coluna, pesquisa):
         try:
-            print(coluna)
-            print(type(coluna))
-            print(pesquisa)
-            print(type(pesquisa))
             self.cursor.execute(f"SELECT * FROM clients WHERE {coluna} LIKE ? ORDER BY nome ASC", (pesquisa,))
             buscar_coluna = self.cursor.fetchall()
+            print(buscar_coluna)
             return buscar_coluna
         except Exception as erro:
             print(f'Erro busc Cadatro: {erro}')
+            return False
 
     def Adicionar_db_cadastro(self, dados):
         try:
             query = """INSERT INTO clients (nome, telefone, endereco, cidade) VALUES (?, ?, ?, ?)"""
             valores = (
-                dados['Nome Cliente'], dados['Telefone'], dados['Endereço'], dados['Cidade']
+                dados['nome'], dados['telefone'], dados['endereco'], dados['cidade']
             )
             self.Organiza_query_db(query, valores)
         except Exception as erro:
@@ -130,8 +136,8 @@ class Main_db():
                 WHERE codigo = ?
             """
             valores = (
-                dados['Nome Cliente'], dados['Telefone'],
-                dados['Endereço'], dados['Cidade'], dados['Cod Cliente']
+                dados['nome'], dados['telefone'],
+                dados['endereco'], dados['cidade'], dados['codigo']
             )
             self.Organiza_query_db(query, valores)
         except Exception as erro:
@@ -140,6 +146,6 @@ class Main_db():
     def Apagar_db_cadastro(self, dados):
         try:
             query = """DELETE FROM clients WHERE codigo = ?"""
-            self.Organiza_query_db(query, [dados['Cod Cliente']])
+            self.Organiza_query_db(query, [dados['codigo']])
         except Exception as erro:
             print(f'Erro del Cadastro: {erro}')

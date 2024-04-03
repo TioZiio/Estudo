@@ -43,18 +43,7 @@ class Create():
         self.Lista_Treeview = self.root.nametowidget(frame_local)
         self.Lista_Treeview.column(valor, width=tamanho, anchor=tk.CENTER)
 
-    def Func_Erro_Dados(self, root, frame='.!frame2', frase="Dados inseridos Incorretamente."):
+    def Func_Erro_Dados(self, root, frame='.!frame2', relx=0.3, rely=0.8,frase="Dados inseridos Incorretamente."):
         self.frame_lista = self.root.nametowidget(frame)
         self.error = tk.Label(self.frame_lista, text=frase, fg="red", bg="#B0C4DE")
-        self.error.place(relx=0.3, rely=0.8)
-
-    def ToolBar(self):
-        self.cadastro = View_C.Tela_Cadastro(self.root)
-        self.menubar = tk.Menu(self.root)
-        self.root.config(menu=self.menubar)
-        self.menutool_Opcao = tk.Menu(self.menubar)
-        self.menubar.add_cascade(label="Opções", menu=self.menutool_Opcao)
-
-        self.menutool_Opcao.add_command(label="Tela Clientes", command=self.cadastro.Organiza_Funcs_Cadastro)
-        self.menutool_Opcao.add_command(label="Tela Vendas")
-        self.menutool_Opcao.add_command(label="Quit", command=self.root.quit) 
+        self.error.place(relx=relx, rely=rely)

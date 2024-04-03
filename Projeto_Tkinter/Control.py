@@ -1,10 +1,7 @@
-from View import Create_visual
-from View import View_Login
-from View import View_Vendas
-from View import View_Cadastro
-import Model
+from View import Create_visual,View_Login,View_Vendas,View_Cadastro,View_Relatorios
 import tkinter as tk
 from tkinter import ttk
+import Model
 from datetime import datetime
 
 class Control():
@@ -12,8 +9,9 @@ class Control():
         self.root = root
         self.create = Create_visual.Create(self.root)
         self.vendas = View_Vendas.Infos_Vendas(self.root)
-        self.banco = Model.Main_db(self.root)
+        self.banco = Model.Main_db()
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
+        self.relatorios = View_Relatorios.Relatorios(self.root)
         self.entrys = entrys
 
     def Transform_frames(self, frame):
@@ -22,14 +20,19 @@ class Control():
 
     def Puxa_dados(self):
         dados = {}
-        if len(self.entrys) == 4:
+        if len(self.entrys) == 2:
+            dados = {
+                'nome': self.entrys[0].get().lower().strip(),
+                'senha': self.entrys[1].get().lower().strip()
+            }
+        elif len(self.entrys) == 4:
             dados = {
                 'Cod Venda': self.entrys[0].get().upper().strip(),
                 'Cod Produto': self.entrys[1].get().upper().strip(),
                 'Valor' : self.entrys[2].get().upper().strip(),
                 "Cod Cliente": self.entrys[3].get().upper().strip()
             }
-        if len(self.entrys) == 5:
+        elif len(self.entrys) == 5:
             dados = {
                 'codigo': self.entrys[0].get().upper().strip(),
                 'nome': self.entrys[1].get().upper().strip(),
@@ -40,16 +43,17 @@ class Control():
         return dados
 
     def Func_Validar_user(self):
-        dados = [[],[]]
-        dados[0] = 'david'; dados[1] = '123'
-        if not dados[0] and not dados[1]:
-            self.create.Info_Labls_Login_Erro()
+        dados = self.Puxa_dados()
+        dados['nome'] = 'david'; dados['senha'] = '123'
+        if not dados['nome'] and not dados['senha']:
+            self.create.Func_Erro_Dados(self.root, relx=0.25, rely=0.0 ,frame='.!frame')
         else:
-            if dados[0] == 'david' and dados[1] == '123':
+            if dados['nome'] == 'david' and dados['senha'] == '123':
                 self.Transform_frames('!frame').destroy()
                 self.vendas.Organiza_Funcs_Vendas()
+                self.relatorios.ToolBar()
             else:
-                self.create.Info_Labls_Login_Erro()
+                self.create.Func_Erro_Dados(self.root, relx=0.25, rely=0.0 ,frame='.!frame')
 
     def Data(self):
         data = datetime.now().strftime('%d/%m')
@@ -96,6 +100,7 @@ class Control():
         self.Lista_Treeview.bind("<Double-1>", self.Func_Double_Click)
 
     def Func_Double_Click(self, event=None):
+        self.Limpar_entrys()
         selection = self.Lista_Treeview.selection()
         item = self.Lista_Treeview.item(selection[0], "values")
         if len(item) == 7:
@@ -125,7 +130,7 @@ class Control():
                     "", tk.END, values=(row[0],f"{row[1]:0>3}",row[2],
                             (f"R$ {row[3]:.2f}"),row[4], row[5],row[6])
                 )
-            else:
+            elif typTela == 'cadastro':
                 self.Lista_Treeview.insert(
                 "", tk.END, values=(row[0], row[1], row[2], row[3], row[4])
                 )
@@ -154,7 +159,7 @@ class Control():
 
     def Processamento_dados_cadastro(self):
         dados_cadastro = self.Puxa_dados()
-        if dados_cadastro['nome'] == '' and dados_cadastro['telefone'] == '':
+        if dados_cadastro['nome'] == '' or dados_cadastro['telefone'] == '':
             return [False, 0]
         if dados_cadastro['endereco'] == '':
             dados_cadastro['endereco'] = 'ENDEREÇO NÃO INSERIDO'
@@ -171,24 +176,26 @@ class Control():
                 coluna = info
                 pesquisa = f'{buscar_dados[info]}%'
         dados = self.banco.buscar_db_cadastro(coluna=coluna, pesquisa=pesquisa)
-        print(dados)
+        if not dados:
+            dados = self.banco.Func_Select_Lista()
+        for infos in dados:
+            self.Lista_Treeview.insert("", tk.END, values=infos)
+        self.Limpar_entrys()
 
     def Atualiza_db_vendas(self, typFunc):
         verificador, dados = self.Processamento_dados_venda()
         treeview = '!frame3.!treeview'
         if verificador == True:
-            if typFunc == 'add':
-                self.banco.Adicionar_db_vendas(dados)
+            func_map = {
+                'add': self.banco.Adicionar_db_vendas,
+                'alt': self.banco.Alterar_db_vendas,
+                'del': self.banco.Apagar_db_vendas
+            }
+            if typFunc in func_map:
+                func_map[typFunc](dados)
                 self.Atualiza_TreeView(typTela='vendas', frame=treeview)
                 self.Limpar_entrys()
-            elif typFunc == 'alt':
-                self.banco.Alterar_db_vendas(dados)
-                self.Atualiza_TreeView(typTela='vendas', frame=treeview)
-                self.Limpar_entrys()
-            elif typFunc == 'del':
-                self.banco.Apagar_db_vendas(dados)
-                self.Atualiza_TreeView(typTela='vendas', frame=treeview)
-                self.Limpar_entrys()
+                self.Limpa_label5()
         else:
             self.create.Func_Erro_Dados(self.root, frase='Cod Produto ou cliente não Cadastrado')
 
@@ -196,19 +203,14 @@ class Control():
         dados_v, dados = self.Processamento_dados_cadastro()
         treeview = self.cadastro.recebe_treeview()
         if dados_v == True:
-            if typFunc == 'add':
-                self.banco.Adicionar_db_cadastro(dados)
-                self.Atualiza_TreeView(frame=treeview)
-                self.Limpar_entrys()
-                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
-            elif typFunc == 'alt':
-                self.banco.Alterar_db_cadastro(dados)
-                self.Atualiza_TreeView(frame=treeview)
-                self.Limpar_entrys()
-                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
-            elif typFunc == 'del':
-                self.banco.Apagar_db_cadastro(dados)
-                self.Atualiza_TreeView(frame=treeview)
+            func_map = {
+                'add': self.banco.Adicionar_db_cadastro,
+                'alt': self.banco.Alterar_db_cadastro,
+                'del': self.banco.Apagar_db_cadastro
+            }
+            if typFunc in func_map:
+                func_map[typFunc](dados)
+                self.Atualiza_TreeView(frame=treeview, typTela='cadastro')
                 self.Limpar_entrys()
                 self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
         else:
@@ -226,4 +228,3 @@ class Control():
                 if widget.winfo_children():
                     listar_widgets_ativos(widget)
         listar_widgets_ativos(self.root)
-                  
