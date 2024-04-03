@@ -43,15 +43,17 @@ class Main_db():
             nome_cliente = self.cursor.fetchall()
             return nome_cliente[0][0]
         except (TypeError, IndexError) as error:
-            print(f'Log Puxar_nome: {error}')
-            return False
+            print(f'Log Puxa_nome: {error}')
+            nome_cliente = 'nulo'
+            return nome_cliente
 
-    def Func_Select_Lista(self, typTela='cadastro', query=None):
+    def Func_Select_Lista(self, typTela='cadastro', mes=None):
         # Função que atualiza e mostra os dados dentro da Lista.
         if typTela == 'vendas':
-            dados = self.cursor.execute(
-                """SELECT * FROM vendas ORDER BY data DESC;"""
-            )
+            query = """SELECT * FROM vendas 
+                    WHERE data LIKE ?
+                    ORDER BY data DESC;"""
+            dados = self.cursor.execute(query, [mes[0]])
             variavel_local = [n for n in dados]
             return variavel_local
         elif typTela == 'cadastro':
@@ -61,12 +63,15 @@ class Main_db():
         else:
             print('Log Erro Func_Select_Lista')
 
-    def Organiza_query_db(self, query, parametros, typTela='vendas'):
+    def Organiza_query_db(self, query, parametros=None, typTela='vendas'):
         if typTela == 'vendas':
             self.cursor.execute(query, parametros)
             self.conn.commit()
         elif typTela == 'relatorio':
-            self.cursor.execute(query, parametros)
+            if parametros != None:
+                self.cursor.execute(query, parametros)
+            else:
+                self.cursor.execute(query)
             dados = self.cursor.fetchall()
             return dados            
 
@@ -112,7 +117,6 @@ class Main_db():
         try:
             self.cursor.execute(f"SELECT * FROM clients WHERE {coluna} LIKE ? ORDER BY nome ASC", (pesquisa,))
             buscar_coluna = self.cursor.fetchall()
-            print(buscar_coluna)
             return buscar_coluna
         except Exception as erro:
             print(f'Erro busc Cadatro: {erro}')
@@ -149,3 +153,30 @@ class Main_db():
             self.Organiza_query_db(query, [dados['codigo']])
         except Exception as erro:
             print(f'Erro del Cadastro: {erro}')
+
+    def Relatorio_mensal(self, parametros):
+        try:
+            query = """SELECT nome_produto, SUM(valor_venda) as valores
+                    FROM vendas
+                    WHERE data LIKE ?
+                    GROUP BY nome_produto
+                    UNION ALL
+                    SELECT 'Total', SUM(valor_venda)
+                    FROM vendas
+                    WHERE data LIKE ?;"""
+            dados = self.Organiza_query_db(typTela='relatorio', query=query, parametros=parametros)
+            return dados
+        except Exception as erro:
+            print(f'Erro Relatorio mensal: {erro}')
+
+    def Relatorio_por_cliente(self):
+        try:
+            query = """
+                SELECT cod_cliente, nome_cliente, SUM(valor_venda) AS total_vendas 
+                FROM vendas 
+                GROUP BY cod_cliente, nome_cliente
+                ORDER BY total_vendas DESC;"""
+            dados = self.Organiza_query_db(query=query, typTela='relatorio')
+            return dados
+        except Exception as erro:
+            print(f'Erro Relatorio por cliente: {erro}')

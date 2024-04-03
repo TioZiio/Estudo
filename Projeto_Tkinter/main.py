@@ -12,13 +12,14 @@ class Main():
         self.vendas = View_Vendas.Infos_Vendas(self.root)
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
         self.banco = Model.Main_db()
-        self.Organiza_funcs()
+        self.Organiza_Funcs()
         self.root.mainloop()
         self.banco.Desconecta_db()
 
-    def Organiza_funcs(self):
+    def Organiza_Funcs(self):
         self.create.Janela(self.root)
         self.login.Organiza_Funcs_Login()
 
 if __name__ == "__main__":
     Main()
+    

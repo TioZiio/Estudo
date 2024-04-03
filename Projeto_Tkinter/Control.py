@@ -1,6 +1,7 @@
 from View import Create_visual,View_Login,View_Vendas,View_Cadastro,View_Relatorios
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import Model
 from datetime import datetime
 
@@ -14,70 +15,59 @@ class Control():
         self.relatorios = View_Relatorios.Relatorios(self.root)
         self.entrys = entrys
 
-    def Transform_frames(self, frame):
-        frame = self.root.nametowidget(frame)
-        return frame
-
     def Puxa_dados(self):
         dados = {}
-        if len(self.entrys) == 2:
-            dados = {
+        match len(self.entry):
+            case 2:
+                dados = {
                 'nome': self.entrys[0].get().lower().strip(),
                 'senha': self.entrys[1].get().lower().strip()
-            }
-        elif len(self.entrys) == 4:
-            dados = {
-                'Cod Venda': self.entrys[0].get().upper().strip(),
-                'Cod Produto': self.entrys[1].get().upper().strip(),
-                'Valor' : self.entrys[2].get().upper().strip(),
-                "Cod Cliente": self.entrys[3].get().upper().strip()
-            }
-        elif len(self.entrys) == 5:
-            dados = {
-                'codigo': self.entrys[0].get().upper().strip(),
-                'nome': self.entrys[1].get().upper().strip(),
-                'telefone': self.entrys[2].get().upper().strip(),
-                'endereco': self.entrys[3].get().upper().strip(),
-                'cidade': self.entrys[4].get().upper().strip()
-            }
+                }
+            case 4:
+                dados = {
+                    'Cod Venda': self.entrys[0].get().upper().strip(),
+                    'Cod Produto': self.entrys[1].get().upper().strip(),
+                    'Valor' : self.entrys[2].get().upper().strip(),
+                    "Cod Cliente": self.entrys[3].get().upper().strip()
+                }
+            case 5:
+                dados = {
+                    'codigo': self.entrys[0].get().upper().strip(),
+                    'nome': self.entrys[1].get().upper().strip(),
+                    'telefone': self.entrys[2].get().upper().strip(),
+                    'endereco': self.entrys[3].get().upper().strip(),
+                    'cidade': self.entrys[4].get().upper().strip()
+                }
         return dados
 
     def Func_Validar_user(self):
         dados = self.Puxa_dados()
         dados['nome'] = 'david'; dados['senha'] = '123'
-        if not dados['nome'] and not dados['senha']:
-            self.create.Func_Erro_Dados(self.root, relx=0.25, rely=0.0 ,frame='.!frame')
+        if not dados['nome'] or not dados['senha']:
+            self.Janela_mensagem_erro()
         else:
             if dados['nome'] == 'david' and dados['senha'] == '123':
                 self.Transform_frames('!frame').destroy()
                 self.vendas.Organiza_Funcs_Vendas()
-                self.relatorios.ToolBar()
+                self.ToolBar()
             else:
-                self.create.Func_Erro_Dados(self.root, relx=0.25, rely=0.0 ,frame='.!frame')
+                self.Janela_mensagem_erro()
+
+    def Transform_frames(self, frame):
+        frame = self.root.nametowidget(frame)
+        return frame
 
     def Data(self):
-        data = datetime.now().strftime('%d/%m')
-        return data
+        data_atual = datetime.now().date()
+        return data_atual.strftime('%d-%m-%Y')
+
+    def Janela_mensagem_erro(self, mensagem='Cliente ou produto não cadastrado'):
+        messagebox.showerror('Erro', mensagem)
 
     def Limpar_entrys(self):
         # Limpa as Entrys da Tela Cadastro.
         for entry in self.entrys:
             entry.delete(0, tk.END)
-
-    def Limpa_label5(self, typlabel='.!frame2.!label'):
-        valores = ['6','7','8','9','10']
-        for n in valores:
-            try:
-                x = label + n
-                frame = self.Transform_frames(x)
-                if frame.winfo_exists():
-                    frame.destroy()
-                    break
-                else:
-                    break
-            except Exception as err:
-                print(f'Log: Label {err} já destruida')
-                pass
 
     def Func_Criar_Treeview(self, typTela=''):
         # Funçao responsavel pela criação da lista e scroll.
@@ -120,11 +110,11 @@ class Control():
             for entry, value in zip(self.entrys, lista):
                 entry.insert(tk.END, value)
 
-    def Atualiza_TreeView(self, frame, typTela=''):
+    def Atualiza_TreeView(self, frame, typTela='', mes=None):
         # Atualiza a lista
         self.Lista_Treeview = self.Transform_frames(frame)
         self.Lista_Treeview.delete(*self.Lista_Treeview.get_children())
-        for row in self.banco.Func_Select_Lista(typTela):
+        for row in self.banco.Func_Select_Lista(typTela, mes=mes):
             if typTela == 'vendas':
                 self.Lista_Treeview.insert(
                     "", tk.END, values=(row[0],f"{row[1]:0>3}",row[2],
@@ -148,10 +138,9 @@ class Control():
             if dados_vendas['Cod Cliente'] == '':
                 return [False, 0]
             dados_vendas['Nome Produto'] = self.vendas.Info_Cod_Produto(dados_vendas['Cod Produto'])
-            if bool(self.banco.Puxa_nome(dados_vendas['Cod Cliente'])):
-                dados_vendas['Nome Cliente'] = self.banco.Puxa_nome(dados_vendas['Cod Cliente'])
-            else:
-                return [False, 0]
+            nome = self.banco.Puxa_nome(dados_vendas['Cod Cliente'])
+            if nome != 'nulo':
+                dados_vendas['Nome Cliente'] = nome
             dados_vendas['Data'] = self.Data()
             return [True, dados_vendas]
         except Exception as err:
@@ -193,16 +182,15 @@ class Control():
             }
             if typFunc in func_map:
                 func_map[typFunc](dados)
-                self.Atualiza_TreeView(typTela='vendas', frame=treeview)
+                self.Atualiza_TreeView(typTela='vendas', frame=treeview, mes=['JAN'])
                 self.Limpar_entrys()
-                self.Limpa_label5()
         else:
-            self.create.Func_Erro_Dados(self.root, frase='Cod Produto ou cliente não Cadastrado')
+            self.Janela_mensagem_erro()
 
     def Atualiza_db_cadastro(self, typFunc):
-        dados_v, dados = self.Processamento_dados_cadastro()
+        verificador, dados = self.Processamento_dados_cadastro()
         treeview = self.cadastro.recebe_treeview()
-        if dados_v == True:
+        if verificador == True:
             func_map = {
                 'add': self.banco.Adicionar_db_cadastro,
                 'alt': self.banco.Alterar_db_cadastro,
@@ -212,19 +200,15 @@ class Control():
                 func_map[typFunc](dados)
                 self.Atualiza_TreeView(frame=treeview, typTela='cadastro')
                 self.Limpar_entrys()
-                self.Limpa_label5(typlabel='!.toplevel.!frame.!label')
         else:
-            self.create.Func_Erro_Dados(
-                self.root, frame='.!toplevel.!frame',frase='Cod Produto ou cliente não Cadastrado'
-            )
+            self.Janela_mensagem_erro()
 
-    def vizualizador_widget(self):
-        print('----------------------------------------------')
-        def listar_widgets_ativos(root):
-            for widget in root.winfo_children():
-                print(f"Widget: {widget}")
-                print(f"Ativo: {widget.winfo_exists()}")
-                print("-----------")
-                if widget.winfo_children():
-                    listar_widgets_ativos(widget)
-        listar_widgets_ativos(self.root)
+    def ToolBar(self):
+        self.menubar = tk.Menu(self.root)
+        self.root.config(menu=self.menubar)
+        self.menutool_Opcao = tk.Menu(self.menubar)
+        self.menubar.add_cascade(label="Relatorios", menu=self.menutool_Opcao)
+
+        self.menutool_Opcao.add_command(label="Vendas Mensais", command=self.relatorios.Janela_relatorio_mensal)
+        self.menutool_Opcao.add_command(label="Vendas por Cliente", command=self.relatorios.Relatorio_cliente)
+        self.menutool_Opcao.add_command(label="Quit", command=self.root.quit)

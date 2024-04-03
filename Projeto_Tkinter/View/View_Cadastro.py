@@ -117,3 +117,4 @@ class Infos_Cadastro():
         self.Info_Colunas_Cadastro()
         frame = self.recebe_treeview()
         self.controle.Atualiza_TreeView(frame=frame, typTela='cadastro')
+        
