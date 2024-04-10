@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from View import Create_visual
-import Control
+from Control import Control_Principal
 
 class Infos_Cadastro():
     def __init__(self, root):
@@ -109,7 +109,7 @@ class Infos_Cadastro():
         self.Tela_Cadastro(self.root_cadastro)
         self.Info_Labls_Cadastro()
         self.Info_Entrys_Cadastro()
-        self.controle = Control.Control(self.root_cadastro, entrys=self.quant_entrys)
+        self.controle = Control_Principal.Principal(self.root_cadastro, entrys=self.quant_entrys)
         self.Info_Btoes_Cadastro()
         self.controle.Func_Criar_Treeview()
         self.Info_Cabecario_Cadastro()

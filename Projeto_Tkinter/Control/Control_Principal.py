@@ -3,9 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from Model import Model_Func
-from datetime import datetime
+from Control import Control_Complementar
 
-class Control():
+class Principal():
     def __init__(self, root, entrys):
         self.root = root
         self.create = Create_visual.Create(self.root)
@@ -13,6 +13,7 @@ class Control():
         self.banco = Model_Func.Func_db()
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
         self.relatorios = View_Relatorios.Relatorios(self.root)
+        self.complementar = Control_Complementar.Funcs_Complementar(self.root)
         self.entrys = entrys
 
     def Puxa_dados(self):
@@ -50,25 +51,14 @@ class Control():
         dados = self.Puxa_dados()
         dados['user'] = 'david'; dados['pass'] = '123'
         if not dados['user'] or not dados['pass']:
-            self.Janela_mensagem_erro()
+            self.complementar.Janela_mensagem_erro()
         else:
             if dados['user'] == 'david' and dados['pass'] == '123':
-                self.Transform_frames('!frame').destroy()
+                self.complementar.Transform_frames('!frame').destroy()
                 self.vendas.Organiza_Funcs_Vendas()
-                self.ToolBar()
+                self.complementar.ToolBar()
             else:
-                self.Janela_mensagem_erro()
-
-    def Transform_frames(self, frame):
-        frame = self.root.nametowidget(frame)
-        return frame
-
-    def Data(self):
-        data_atual = datetime.now().date()
-        return data_atual.strftime('%d-%m-%Y')
-
-    def Janela_mensagem_erro(self, mensagem='Cliente ou produto não cadastrado'):
-        messagebox.showerror('Erro', mensagem)
+                self.complementar.Janela_mensagem_erro()
 
     def Limpar_entrys(self):
         # Limpa as Entrys da Tela Cadastro.
@@ -78,7 +68,7 @@ class Control():
     def Func_Criar_Treeview(self, typTela=''):
         # Funçao responsavel pela criação da lista e scroll.
         if typTela == 'vendas':
-            self.frame_lista = self.Transform_frames(frame='.!frame3')
+            self.frame_lista = self.complementar.Transform_frames(frame='.!frame3')
             self.Lista_Treeview = ttk.Treeview(
                 self.frame_lista, height=3, column=(
                     "Cod PROD", "PRODUTO", "Qt PROD", "VALOR", "Cod CLIENTE", "NOME", "DATA"
@@ -124,7 +114,7 @@ class Control():
 
     def Atualiza_TreeView(self, frame, typTela='', mes=None):
         # Atualiza a lista
-        self.Lista_Treeview = self.Transform_frames(frame)
+        self.Lista_Treeview = self.complementar.Transform_frames(frame)
         self.Lista_Treeview.delete(*self.Lista_Treeview.get_children())
         for row in self.banco.Func_Select_Lista(typTela, mes=mes):
             if typTela == 'vendas':
@@ -153,7 +143,7 @@ class Control():
             nome = self.banco.Puxa_nome(dados_vendas['Cod Cliente'])
             if nome != 'nulo':
                 dados_vendas['Nome Cliente'] = nome
-            dados_vendas['Data'] = self.Data()
+            dados_vendas['Data'] = self.complementar.Data()
             return [True, dados_vendas]
         except Exception as err:
             print(f'Log: erro no Processamento de dados\n{err}')
@@ -197,7 +187,7 @@ class Control():
                 self.Atualiza_TreeView(typTela='vendas', frame=treeview, mes=['JAN'])
                 self.Limpar_entrys()
         else:
-            self.Janela_mensagem_erro()
+            self.complementar.Janela_mensagem_erro()
 
     def Atualiza_db_cadastro(self, typFunc):
         verificador, dados = self.Processamento_dados_cadastro()
@@ -213,19 +203,4 @@ class Control():
                 self.Atualiza_TreeView(frame=treeview, typTela='cadastro')
                 self.Limpar_entrys()
         else:
-            self.Janela_mensagem_erro()
-
-    def ToolBar(self):
-        self.menubar = tk.Menu(self.root)
-        self.root.config(menu=self.menubar)
-        self.menutool_Opcao = tk.Menu(self.menubar)
-        self.menubar.add_cascade(label="Relatorios", menu=self.menutool_Opcao)
-
-        self.menutool_Opcao.add_command(
-            label="Vendas Mensais", command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='mensal')
-        )
-        self.menutool_Opcao.add_command(label="Vendas por Cliente", command=self.relatorios.Relatorio_cliente)
-        self.menutool_Opcao.add_command(
-            label='Investimento', command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='investimento')
-        )
-        self.menutool_Opcao.add_command(label="Quit", command=self.root.quit)
+            self.complementar.Janela_mensagem_erro()
