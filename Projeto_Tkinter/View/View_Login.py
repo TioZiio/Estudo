@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from View import Create_visual
-import Control
+from Control import Control_Principal
 
 
 class Infos_Login():
@@ -39,6 +39,6 @@ class Infos_Login():
     def Organiza_Funcs_Login(self):
         self.Tela_Login()
         self.Info_Entrys_Login()
-        self.controle = Control.Control(self.root, entrys=self.quant_entrys_Login)
+        self.controle = Control_Principal.Principal(self.root, entrys=self.quant_entrys_Login)
         self.Info_Btoes_Login()
         self.Info_Labls_Login()

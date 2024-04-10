@@ -5,7 +5,7 @@ from Model import Model_Func
 import pandas as pd
 import matplotlib.pyplot as plt
 import locale
-import Control
+from Control import Control_Principal
 
 class Relatorios():
     def __init__(self, root):
@@ -141,7 +141,7 @@ class Relatorios():
 
     def Investimentos(self):
         self.Infos_Relatorios_investimento()
-        self.controle = Control.Control(root=self.root_relatorio, entrys=self.quant_entrys)
+        self.controle = Control_Principal.Principal(root=self.root_relatorio, entrys=self.quant_entrys)
         self.botoes_investimento()
         self.Inserir_dados()
         
