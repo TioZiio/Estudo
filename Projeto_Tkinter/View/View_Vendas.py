@@ -70,8 +70,44 @@ class Infos_Vendas():
                 lambda: self.controle.Atualiza_db_vendas(typFunc='alt')),
             (self.caixa1, "Apagar", 0.87, 0.05, 0.1, 0.15, 
                 lambda: self.controle.Atualiza_db_vendas(typFunc='del')),
-            (self.caixa1, "Clientes Help", 0.7, 0.8, 0.25, 0.15, 
-                lambda: self.cadastro.Organiza_Funcs_Cadastro())
+            (self.caixa1, "Clientes Help", 0.7, 0.68, 0.25, 0.15, 
+                lambda: self.cadastro.Organiza_Funcs_Cadastro()),
+            (self.caixa1, 'JAN', 0.05, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='JAN'))),
+            (self.caixa1, 'VEF', 0.12, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='VEF'))),
+            (self.caixa1, 'MAR', 0.19, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='MAR'))),
+            (self.caixa1, 'ABR', 0.26, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='ABR'))),
+            (self.caixa1, 'MAI', 0.33, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='MAI'))),
+            (self.caixa1, 'JUN', 0.40, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='JUN'))),
+            (self.caixa1, 'JUL', 0.47, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='JUL'))),
+            (self.caixa1, 'AGO', 0.54, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='AGO'))),
+            (self.caixa1, 'SET', 0.61, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='SET'))),
+            (self.caixa1, 'OUT', 0.68, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='OUT'))),
+            (self.caixa1, 'NOV', 0.75, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='NOV'))),
+            (self.caixa1, 'DEZ', 0.82, 0.9, 0.07, 0.12,
+                lambda: self.controle.Atualiza_TreeView(frame='!frame3.!treeview', 
+                typTela='vendas', mes=self.create.Data_mes(mes='DEZ')))
         ]
         for info in botoes_info:
             botao = self.create.Func_Criar_Bt(*info)
@@ -106,4 +142,5 @@ class Infos_Vendas():
         self.controle.Func_Criar_Treeview(typTela='vendas')
         self.Info_Cabecario_Vendas()
         self.Info_Colunas_Vendas()
-        self.controle.Atualiza_TreeView(typTela='vendas', frame='!frame3.!treeview')
+        self.controle.Atualiza_TreeView(typTela='vendas', frame='!frame3.!treeview', mes=['JAN'])
+        

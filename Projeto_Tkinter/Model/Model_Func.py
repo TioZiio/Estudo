@@ -1,41 +1,10 @@
 import sqlite3
+from Model import Model_init
 
-class Main_db():
+class Func_db():
     def __init__(self):
-        db = 'clientes.db'
-        self.conn = sqlite3.connect(db)
-        self.cursor = self.conn.cursor()
-        self.Monta_Tabela_Vendas()
-        self.Monta_Tabela_Cadastro()
-        print('Entrou no BD')
-        
-    def Desconecta_db(self):
-        self.cursor.close()
-        print('Saiu no BD')
-        
-    def Monta_Tabela_Vendas(self):
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS vendas(
-                cod_venda INTEGER PRIMARY KEY AUTOINCREMENT,
-                cod_produto INTEGER,
-                nome_produto CHAR(30),
-                valor_venda INTEGER,
-                cod_cliente INTEGER NOT NULL,
-                nome_cliente CHAR(50),
-                data CHAR(10)
-            );""")
-        self.conn.commit()
-
-    def Monta_Tabela_Cadastro(self):
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS clients(
-                codigo INTEGER PRIMARY KEY AUTOINCREMENT,
-                nome CHAR(50) NOT NULL,
-                telefone INTEGER,
-                endereco CHAR(50),
-                cidade CHAR(30)
-            );""")
-        self.conn.commit()
+        self.banco = Model_init.Main_db()
+        self.cursor = self.banco.Conecta_db()
 
     def Puxa_nome(self, codigo=0):
         try:
@@ -49,27 +18,32 @@ class Main_db():
 
     def Func_Select_Lista(self, typTela='cadastro', mes=None):
         # Função que atualiza e mostra os dados dentro da Lista.
-        if typTela == 'vendas':
-            query = """SELECT * FROM vendas 
-                    WHERE data LIKE ?
-                    ORDER BY data DESC;"""
-            dados = self.cursor.execute(query, [mes[0]])
-            variavel_local = [n for n in dados]
-            return variavel_local
-        elif typTela == 'cadastro':
-            dados = self.cursor.execute("""SELECT * FROM clients ORDER BY nome ASC;""")
-            variavel_local = [n for n in dados]
-            return variavel_local
-        else:
-            print('Log Erro Func_Select_Lista')
+        match typTela:
+            case 'vendas':
+                query = """SELECT * FROM vendas 
+                        WHERE data LIKE ?
+                        ORDER BY data DESC;"""
+                dados = self.cursor.execute(query, [mes[0]])
+                variavel_local = [n for n in dados]
+                return variavel_local
+            case 'cadastro':
+                dados = self.cursor.execute("""SELECT * FROM clients ORDER BY nome ASC;""")
+                variavel_local = [n for n in dados]
+                return variavel_local
+            case 'investimento':
+                self.cursor.execute("""SELECT * FROM investimentos ORDER BY codigo_relatorio DESC""")
+                dados = self.cursor.fetchall()
+                return dados
+            case _:
+                print('Log Erro Func_Select_Lista')
 
     def Organiza_query_db(self, query, parametros=None, typTela='vendas'):
         if typTela == 'vendas':
             self.cursor.execute(query, parametros)
-            self.conn.commit()
         elif typTela == 'relatorio':
             if parametros != None:
                 self.cursor.execute(query, parametros)
+
             else:
                 self.cursor.execute(query)
             dados = self.cursor.fetchall()
@@ -180,3 +154,18 @@ class Main_db():
             return dados
         except Exception as erro:
             print(f'Erro Relatorio por cliente: {erro}')
+
+    def Adicionar_investimento(self, dados):
+        try:
+            query = """INSERT INTO investimentos (produto, valor) VALUES (?,?);"""
+            valores = (dados['produto'], dados['valor'])
+            self.Organiza_query_db(query, parametros=valores, typTela='relatorio')
+        except Exception as erro:
+            print(f'Erro add Relatorio: {erro}')
+
+    def Apagar_investimentos(self, dados):
+        try:
+            query = """DELETE FROM investimentos WHERE codigo_relatorio = ?"""
+            self.Organiza_query_db(query=query, parametros=dados['cod.invest'])
+        except Exception as erro:
+            print(f'Erro del Cadastro: {erro}')
