@@ -53,7 +53,6 @@ class Infos_Cadastro():
             self.create.Func_Criar_Lb(*info)
 
     def Info_Entrys_Cadastro(self):
-        self.Entrada_dados = []
         entradas_info = [
             (0.02, 0.15, 0.05, 0.15),
             (0.02, 0.5, 0.15, 0.15),
@@ -67,7 +66,7 @@ class Infos_Cadastro():
             self.quant_entrys.append(entry)
 
     def verificador_treeview(self, typFrame):
-        valores = ['','2', '3', '4', '5', '6', '7', '8', '9', '10']
+        valores = ['','2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
         for n in valores:
             try:
                 frame = f'.!toplevel{n}.!frame2'

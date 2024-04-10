@@ -2,7 +2,7 @@ from View import Create_visual,View_Login,View_Vendas,View_Cadastro,View_Relator
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import Model
+from Model import Model_Func
 from datetime import datetime
 
 class Control():
@@ -10,18 +10,24 @@ class Control():
         self.root = root
         self.create = Create_visual.Create(self.root)
         self.vendas = View_Vendas.Infos_Vendas(self.root)
-        self.banco = Model.Main_db()
+        self.banco = Model_Func.Func_db()
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
         self.relatorios = View_Relatorios.Relatorios(self.root)
         self.entrys = entrys
 
     def Puxa_dados(self):
         dados = {}
-        match len(self.entry):
+        match len(self.entrys):
             case 2:
                 dados = {
-                'nome': self.entrys[0].get().lower().strip(),
-                'senha': self.entrys[1].get().lower().strip()
+                'user': self.entrys[0].get().lower().strip(),
+                'pass': self.entrys[1].get().lower().strip()
+                }
+            case 3:
+                dados = {
+                'cod.invest': self.entrys[0].get().lower().strip(),
+                'produto': self.entrys[1].get().lower().strip(),
+                'valor': self.entrys[2].get().lower().strip()
                 }
             case 4:
                 dados = {
@@ -42,11 +48,11 @@ class Control():
 
     def Func_Validar_user(self):
         dados = self.Puxa_dados()
-        dados['nome'] = 'david'; dados['senha'] = '123'
-        if not dados['nome'] or not dados['senha']:
+        dados['user'] = 'david'; dados['pass'] = '123'
+        if not dados['user'] or not dados['pass']:
             self.Janela_mensagem_erro()
         else:
-            if dados['nome'] == 'david' and dados['senha'] == '123':
+            if dados['user'] == 'david' and dados['pass'] == '123':
                 self.Transform_frames('!frame').destroy()
                 self.vendas.Organiza_Funcs_Vendas()
                 self.ToolBar()
@@ -93,22 +99,28 @@ class Control():
         self.Limpar_entrys()
         selection = self.Lista_Treeview.selection()
         item = self.Lista_Treeview.item(selection[0], "values")
-        if len(item) == 7:
-            lista = []
-            for info in item:
-                lista.append(info)
-            lista.pop(2); lista.pop(); lista.pop()
-            if 'R$ ' in lista[2]:
-                alt = lista[2].replace('R$ ', ' ').strip()
-                lista[2] = alt
-            for entry, value in zip(self.entrys, lista):
-                entry.insert(tk.END, value)
-        else:
-            lista = []
-            for info in item:
-                lista.append(info)
-            for entry, value in zip(self.entrys, lista):
-                entry.insert(tk.END, value)
+        match len(item):
+            case 2:
+                lista = []
+                for info in item:
+                    lista.append(info)
+                print(lista)
+            case 5:
+                lista = []
+                for info in item:
+                    lista.append(info)
+                for entry, value in zip(self.entrys, lista):
+                    entry.insert(tk.END, value)
+            case 7:
+                lista = []
+                for info in item:
+                    lista.append(info)
+                lista.pop(2); lista.pop(); lista.pop()
+                if 'R$ ' in lista[2]:
+                    alt = lista[2].replace('R$ ', ' ').strip()
+                    lista[2] = alt
+                for entry, value in zip(self.entrys, lista):
+                    entry.insert(tk.END, value)
 
     def Atualiza_TreeView(self, frame, typTela='', mes=None):
         # Atualiza a lista
@@ -209,6 +221,11 @@ class Control():
         self.menutool_Opcao = tk.Menu(self.menubar)
         self.menubar.add_cascade(label="Relatorios", menu=self.menutool_Opcao)
 
-        self.menutool_Opcao.add_command(label="Vendas Mensais", command=self.relatorios.Janela_relatorio_mensal)
+        self.menutool_Opcao.add_command(
+            label="Vendas Mensais", command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='mensal')
+        )
         self.menutool_Opcao.add_command(label="Vendas por Cliente", command=self.relatorios.Relatorio_cliente)
+        self.menutool_Opcao.add_command(
+            label='Investimento', command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='investimento')
+        )
         self.menutool_Opcao.add_command(label="Quit", command=self.root.quit)
