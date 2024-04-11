@@ -58,8 +58,35 @@ class Main_db():
             );""")
         conn.commit()
 
+    def Monta_Tabela_Cadastro_Log(self):
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS clients_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            acao TEXT,
+            codigo INTEGER,
+            nome CHAR(50),
+            telefone INTEGER,
+            endereco CHAR(50),
+            cidade CHAR(30),
+            data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );""")
+        conn.commit()
+
+    def Monta_Trigger_Log_cadastro(self):
+        self.cursor.execute("""
+            CREATE TRIGGER IF NOT EXISTS clients_trigger
+            AFTER INSERT ON clients
+            FOR EACH ROW
+            BEGIN
+                INSERT INTO clients_log (acao, codigo, nome, telefone, endereco, cidade)
+                VALUES ('Inserção', NEW.codigo, NEW.nome, NEW.telefone, NEW.endereco, NEW.cidade);
+            END;""")
+        conn.commit()
+
     def Organiza_Tabelas(self):
         self.Monta_Tabela_Vendas()
         self.Monta_Tabela_Cadastro()
         self.Monta_Tabela_Relatorio()
+        self.Monta_Tabela_Cadastro_Log()
+        self.Monta_Trigger_Log_cadastro()
         

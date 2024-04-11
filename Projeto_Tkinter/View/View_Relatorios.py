@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from View import Create_visual
 from Model import Model_Func
 import pandas as pd
@@ -16,10 +16,10 @@ class Relatorios():
         
     def Janela_relatorio(self):
         self.root_relatorio = tk.Toplevel(self.root_temp)
-        self.root_relatorio.title('Relatorio Mensal')
+        self.root_relatorio.title('Relatorios')
         self.root_relatorio.configure(background="#2F4F4F")
         self.root_relatorio.geometry("410x300")
-        self.root_relatorio.resizable(False, False)
+        self.root_relatorio.resizable(True, True)
     
     def Infos_Relatorios_mensal(self):
         self.caixa1 = self.create.Func_Criar_Caixas(
@@ -78,7 +78,6 @@ class Relatorios():
         dados = self.banco.Relatorio_por_cliente()
         df_dados = pd.DataFrame(dados, columns=['COD CLIENTE', 'NOME', 'V.TOTAL'])
         df_dados_10 = df_dados.head(10)
-        formatar_em_real = lambda x: locale.currency(x, grouping=True)
         plt.figure(figsize=(6,4))
         plt.bar(df_dados_10['NOME'], df_dados_10['V.TOTAL'], color='blue')
         plt.xlabel('Clientes')
@@ -111,8 +110,15 @@ class Relatorios():
 
     def Processamento_dados_investimento(self):
         dados = self.controle.Puxa_dados()
-        if dados['produto'] == '' or dados['valor'] == '':
-            self.controle.Janela_mensagem_erro(mensagem='Produto ou Valor não inserido')
+        if dados['cod.invest'] == '':
+            if dados['produto'] == '' or dados['valor'] == '':
+                messagebox.showerror('Erro', 'Produto ou Valor não inserido')
+            else:
+                if ',' in dados['valor']:
+                    alt = float(dados['valor'].replace(',', '.').strip())
+                    dados['valor'] = alt
+                self.controle.Limpar_entrys()
+                return dados
         else:
             self.controle.Limpar_entrys()
             return dados
@@ -120,9 +126,9 @@ class Relatorios():
     def botoes_investimento(self):
         botoes_info = [
             (self.caixa1, "Adicionar", 0.8, 0.1, 0.2, 0.4,
-                lambda: self.banco.Adicionar_investimento(dados=self.Processamento_dados_investimento())),
+                lambda: self.Funcs_Investimentos('add')),
             (self.caixa1, "Apagar", 0.8, 0.5, 0.2, 0.4,
-                lambda: self.banco.Apagar_investimentos(dados=self.Processamento_dados_investimento()))
+                lambda: self.Funcs_Investimentos('del'))
         ]
         for info in botoes_info:
             self.create.Func_Criar_Bt(*info)
@@ -130,24 +136,45 @@ class Relatorios():
     def formatar_em_real(self, valor):
         return locale.currency(valor, grouping=True)
 
-    def Inserir_dados(self):
+    def Atualiza_dados(self):
         df_dados = pd.DataFrame(
             self.banco.Func_Select_Lista(typTela='investimento'), columns=['Cod.Produto','Produto', 'Valor']
         )
         df_dados['Valor'] = df_dados['Valor'].apply(self.formatar_em_real)
-        textos = tk.Text(self.caixa2)
-        textos.insert(tk.END, df_dados.to_string(index=False, justify='center'))
-        textos.pack()
+        self.textos = tk.Text(self.caixa2)
+        self.textos.insert(tk.END, df_dados.to_string(index=False, justify='center'))
+        self.textos.pack()
 
-    def Investimentos(self):
-        self.Infos_Relatorios_investimento()
-        self.controle = Control_Principal.Principal(root=self.root_relatorio, entrys=self.quant_entrys)
-        self.botoes_investimento()
-        self.Inserir_dados()
+    def Atualiza_texto(self):
+        self.textos.destroy()
+
+    def Funcs_Investimentos(self, typFunc):
+        if typFunc == 'add':
+            self.banco.Adicionar_investimento(dados=self.Processamento_dados_investimento())
+        elif typFunc == 'del':
+            self.banco.Apagar_investimentos(dados=self.Processamento_dados_investimento())
+        self.Atualiza_texto()
+        self.Atualiza_dados()
         
+    def Log_Clientes_Novos(self):
+        dados = self.banco.Log_Clientes_Novos()
+        df_dados = pd.DataFrame(dados, columns=['CODIGO', 'NOME', 'TELEFONE', 'ENDERECO'])
+        self.caixa3 = self.create.Func_Criar_Caixas(
+            relx=0.02, rely=0.02, relwidth=0.98, relheight=0.98, root=self.root_relatorio
+        )
+        self.textos = tk.Text(self.caixa3)
+        self.textos.insert(tk.END, df_dados.to_string(index=False, justify='center'))
+        self.textos.pack()
+
     def Organiza_Funcs_Relatorios(self, typFunc):
         self.Janela_relatorio()
-        if typFunc == 'mensal':
-            self.Infos_Relatorios_mensal()
-        else:
-            self.Investimentos()
+        match typFunc:
+            case 'mensal':
+                self.Infos_Relatorios_mensal()
+            case 'investimento':
+                self.Infos_Relatorios_investimento()
+                self.controle = Control_Principal.Principal(root=self.root_relatorio, entrys=self.quant_entrys)
+                self.botoes_investimento()
+                self.Atualiza_dados()
+            case 'clientes_novos':
+                self.Log_Clientes_Novos()

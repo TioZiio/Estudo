@@ -43,7 +43,6 @@ class Func_db():
         elif typTela == 'relatorio':
             if parametros != None:
                 self.cursor.execute(query, parametros)
-
             else:
                 self.cursor.execute(query)
             dados = self.cursor.fetchall()
@@ -166,6 +165,16 @@ class Func_db():
     def Apagar_investimentos(self, dados):
         try:
             query = """DELETE FROM investimentos WHERE codigo_relatorio = ?"""
-            self.Organiza_query_db(query=query, parametros=dados['cod.invest'])
+            self.Organiza_query_db(query=query, parametros=[dados['cod.invest']])
         except Exception as erro:
-            print(f'Erro del Cadastro: {erro}')
+            print(f'Erro del Investimento: {erro}')
+
+    def Log_Clientes_Novos(self):
+        try:
+            query = """
+                SELECT codigo, nome, telefone, endereco FROM clients_log
+                ORDER BY id ASC"""
+            dados = self.Organiza_query_db(query=query, typTela='relatorio')
+            return dados
+        except Exception as erro:
+            print(f'Erro Clientes Novos: {erro}')
