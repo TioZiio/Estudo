@@ -1,5 +1,6 @@
 from datetime import datetime
 import tkinter as tk
+from tkinter import messagebox
 from View import View_Relatorios
 
 
@@ -32,4 +33,8 @@ class Funcs_Complementar():
         self.menutool_Opcao.add_command(
             label='Investimento', command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='investimento')
         )
+        self.menutool_Opcao.add_command(
+            label="Novos Clientes", command=lambda: self.relatorios.Organiza_Funcs_Relatorios(typFunc='clientes_novos')
+        )
         self.menutool_Opcao.add_command(label="Quit", command=self.root_complementar.quit)
+        

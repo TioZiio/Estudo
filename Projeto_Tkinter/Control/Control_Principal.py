@@ -49,7 +49,6 @@ class Principal():
 
     def Func_Validar_user(self):
         dados = self.Puxa_dados()
-        dados['user'] = 'david'; dados['pass'] = '123'
         if not dados['user'] or not dados['pass']:
             self.complementar.Janela_mensagem_erro()
         else:
