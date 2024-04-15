@@ -1,4 +1,5 @@
 import sqlite3
+from Model import Backup
 
 db = 'clientes.db'
 conn = sqlite3.connect(db)
@@ -12,6 +13,7 @@ class Main_db():
         return self.cursor
         
     def Desconecta_db(self):
+        backup = Backup.main()
         self.conn = conn
         self.conn.commit()
         self.conn.close()
