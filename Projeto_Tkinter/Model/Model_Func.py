@@ -31,7 +31,11 @@ class Func_db():
                 variavel_local = [n for n in dados]
                 return variavel_local
             case 'investimento':
-                self.cursor.execute("""SELECT * FROM investimentos ORDER BY codigo_relatorio DESC""")
+                self.cursor.execute("""
+                    SELECT * FROM investimentos 
+                    UNION ALL 
+                    SELECT '->', 'Total', SUM(valor) 
+                    FROM investimentos;""")
                 dados = self.cursor.fetchall()
                 return dados
             case _:
