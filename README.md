@@ -7,5 +7,4 @@ Todos os projetos aqui colocados, tem como objetivo treinar programação e alca
 
 Objetivo:
 
-	1. Aprender a utilizar github para auxilir projetos open source futuramente.
-	2. Aprender JavaScript
+	1. Aprender JavaScript
