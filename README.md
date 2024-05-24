@@ -8,3 +8,4 @@ Todos os projetos aqui colocados, tem como objetivo treinar programação e alca
 Objetivo:
 
 	1. Aprender JavaScript
+	2. Aprender Django
