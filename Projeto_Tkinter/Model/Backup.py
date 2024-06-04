@@ -22,14 +22,14 @@ def verificar_diretorio_backup(directory):
     except Exception as err:
         print(f'Log Backup ultimo backup: {err}')
 
-def backup_drive(directory, arquivo_backup, destino_drive):
+def backup_drive(directory, arquivo_backup):
     try:
         shutil.move(os.path.join(directory, arquivo_backup), os.path.join(destino_drive, arquivo_backup))
         print(f"Backup movido para o drive: {os.path.join(destino_drive, arquivo_backup)}")
     except Exception as e:
         print(f"Erro ao mover backup para o drive: {e}")
 
-def limpar_backup_antigos(directory, max_backups, destino_drive):
+def limpar_backup_antigos(directory, max_backups):
     list_backups = []
     for arquivo in os.listdir(directory):
         if arquivo.startswith("clientes.db_") and arquivo.endswith(".db"):
@@ -41,7 +41,7 @@ def limpar_backup_antigos(directory, max_backups, destino_drive):
     for arquivo in list_backups:
         if arquivo not in backups:
             caminho_arquivo = os.path.join(directory, arquivo)
-            backup_drive(directory, arquivo, destino_drive)
+            backup_drive(directory, arquivo)
             os.remove(caminho_arquivo)
             print(f"46 Backup anterior removido: {caminho_arquivo}")
 
@@ -64,9 +64,8 @@ def verificar_data_ultimo_backup(directory):
 
 def main():
     db = "clientes.db"
-    diretorio_backup = "/home/anonimo/Área de Trabalho/Estudos/GitHub/Estudo/Projeto_Tkinter/"
-    destino_drive = "/home/anonimo/Área de Trabalho/Estudos/GitHub/Estudo/Projeto_Tkinter/Backups/"
-    maximo_backups = 8
+    diretorio_backup = os.getcwd()
+    maximo_backups = 4
 
     verificar_diretorio_backup(diretorio_backup)
     data_ultimo_backup = verificar_data_ultimo_backup(diretorio_backup)
@@ -74,7 +73,7 @@ def main():
 
     if (data_atual - data_ultimo_backup).days >= 7:
         data_ultimo_backup = fazer_backup(db, diretorio_backup)
-        limpar_backup_antigos(diretorio_backup, maximo_backups, destino_drive)
+        limpar_backup_antigos(diretorio_backup, maximo_backups)
 
 if __name__ == "__main__":
     main()
