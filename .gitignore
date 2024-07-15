@@ -1,19 +1,13 @@
 # Ignorar diretórios e arquivos específicos
 
-../Codigos_Rapidos/
-../LOL/leagueoflegends.txt
-../LOL/nomes.txt
-../LOL/test.py
-../Projeto_Tkinter/Control/__pycache__/
-../Projeto_Tkinter/Model/__pycache__/
-../Projeto_Tkinter/Model/tt.py
-../Projeto_Tkinter/View/__pycache__/
-../Projeto_Tkinter/__pycache__/
-../Projeto_Tkinter/clientes.db
-../Projeto_Tkinter/clientes.db_2024-06-04.db
-../Projeto_Tkinter/pipocaria_imperial
-../Projeto_Tkinter/pp.py
-../Twitter/
+./Codigos_Rapidos/
+./LOL/leagueoflegends.txt
+./LOL/nomes.txt
+./LOL/test.py
+./Projeto_Tkinter/Model/tt.py
+./Projeto_Tkinter/pipocaria_imperial
+./Projeto_Tkinter/pp.py
+./Twitter/
 __pycache__/
 
 # Extras------------------------
