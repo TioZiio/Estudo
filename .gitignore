@@ -15,10 +15,12 @@ Twitter/
 *.exe
 *.o
 *.obj
+*.txt
 
 # Ignorar diretórios de build
 /build/
 out/
+test.py
 
 # Ignorar diretórios de cache
 __pycache__/
