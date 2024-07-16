@@ -16,6 +16,7 @@ Twitter/
 *.o
 *.obj
 *.txt
+*.env
 
 # Ignorar diretórios de build
 /build/

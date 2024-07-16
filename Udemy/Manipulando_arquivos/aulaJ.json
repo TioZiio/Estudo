@@ -1,20 +1,23 @@
 [
   {
-    "Nome": "TioZiio",
-    "Classe": "Progenitor",
-    "Idade": "23",
-    "Epoca": "Seculo-21"
+    "nome": "TioZiio",
+    "classe": "Progenitor",
+    "idade": "23",
+    "epoca": "Seculo-21",
+    "rpg": "Games"
   },
   {
-    "Nome": "Perciaval",
-    "Classe": "Guerreiro",
-    "Idade": "16",
-    "Epoca": "Seculo-17"
+    "nome": "Perciaval",
+    "classe": "Guerreiro",
+    "idade": "16",
+    "epoca": "Seculo-17",
+    "rpg": "Magia"
   },
   {
-    "Nome": "Arthur",
-    "Classe": "Diplomata",
-    "Idade": "15",
-    "Epoca": "Seculo-19"
+    "nome": "Arthur",
+    "classe": "Diplomata",
+    "idade": "15",
+    "epoca": "Seculo-19",
+    "rpg": "Faroeste"
   }
 ]
