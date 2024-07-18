@@ -18,6 +18,7 @@ Personalização_SHELL
 *.obj
 *.txt
 *.env
+*.pdf
 
 # Ignorar diretórios de build
 /build/

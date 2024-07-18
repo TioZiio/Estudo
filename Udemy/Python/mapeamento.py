@@ -1,5 +1,3 @@
-
-
 produtos = [
 	{'nome': 'p1', 'preço': 20,},
 	{'nome': 'p2', 'preço': 30,},
@@ -14,8 +12,6 @@ for n in produtos:
 		n['preço'] *= 5
 	v_produtos.append(n)
 
-[print(v) for v in v_produtos] 
-
 print()
 print()
 
@@ -27,4 +23,5 @@ n_produtos = [
 	for value in produtos
 ]
 
-[print(x) for x in n_produtos] 
+for x in n_produtos:
+	print(x)
