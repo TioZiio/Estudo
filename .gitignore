@@ -21,6 +21,7 @@ Udemy/Python/Web/style.css
 *.txt
 *.env
 *.pdf
+*.xlsx
 
 # Ignorar diretórios de build
 /build/
