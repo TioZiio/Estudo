@@ -1,4 +1,4 @@
-Curso de python, voltado para aprender bibliotecas e algumas APIs, além de aperfeiçoar lógica de programação e noções de estrutura de código.
+Curso de python da Udemy, voltado para aprender bibliotecas e algumas APIs, além de aperfeiçoar lógica de programação e noções de estrutura de código.
 
 Observação: As bibliotecas estudas neste curso são apenas para ter um visão, sem muito aprofundamento, entretanto algumas são mais aprofundadas.
 
