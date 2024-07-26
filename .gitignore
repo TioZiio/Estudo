@@ -22,11 +22,13 @@ Udemy/Python/Web/style.css
 *.env
 *.pdf
 *.xlsx
+*.vscode
 
 # Ignorar diretórios de build
 /build/
 out/
 test.py
+venv/
 
 # Ignorar diretórios de cache
 __pycache__/
