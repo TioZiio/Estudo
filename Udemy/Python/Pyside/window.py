@@ -1,12 +1,12 @@
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit)
-from variables import BIG_FONT_SIZE, MEDIUM_FONT_SIZE, TEXT_MARGIN_ENTRY, MINIMUM_WIDTH
+from variables import *
 
 class MainWindow(QMainWindow):
     """
         Classe responsável pela criação da janela principal
-        Comandos:
+        Variaveis:
             self.central_widget: variavel que recebe os Widgets;
             self.main_layout: variavel que especifiva o tipo de layout;
         Funções:
@@ -17,7 +17,9 @@ class MainWindow(QMainWindow):
         super().__init__(parent, *args, **kwargs)
 
         self.central_widget = QWidget()
-        self.main_layout = QVBoxLayout() # QVBoxLayout e um dos tipos que existe;
+        # QVBoxLayout e um dos tipos que existe. Neste tipo, os Widgets são adicionados
+        # um abaixo do outro, como cascata; 
+        self.main_layout = QVBoxLayout()
         self.central_widget.setLayout(self.main_layout)
         self.setCentralWidget(self.central_widget)
 
@@ -43,9 +45,9 @@ class Entry(QLineEdit):
         self.setPlaceholderText('Digite numeros ...') # Frase fixa dentro da entry
 
     def config_style_entry(self):
-        self.setStyleSheet(f'font-size: {BIG_FONT_SIZE}px;') # Tamanho da fonte
+        self.setStyleSheet(f'font-size: {FONT_SIZE_ENTRY}px;') # Tamanho da fonte
         self.setMinimumHeight(BIG_FONT_SIZE) # Tamanho da altura
-        self.setMinimumWidth(MINIMUM_WIDTH) # TAmanho da largura
+        self.setMinimumWidth(MINIMUM_WIDTH) # Tamanho da largura
         self.setAlignment(Qt.AlignmentFlag.AlignRight) # Define a indentação da Entry
         self.setTextMargins(*TEXT_MARGIN_ENTRY) # Margem das 4 bordas; [left, top, right, bottom]
 

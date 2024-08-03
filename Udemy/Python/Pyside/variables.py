@@ -1,16 +1,18 @@
 
 from pathlib import Path 
 
+# Paths
 ROOT_DIR = Path(__file__).parent
 FILES_DIR = ROOT_DIR / 'files'
 WINDOW_ICON_PATH = FILES_DIR / 'images.ico'
 
 # Sizing
-MINIMUM_WIDTH = 400
-BIG_FONT_SIZE = 30
+MINIMUM_WIDTH = 280
+BIG_FONT_SIZE = 50
 MEDIUM_FONT_SIZE = 20
 SMALL_FONT_SIZE = 10
-TEXT_MARGIN_ENTRY = [5, 30, 15, 10]
+FONT_SIZE_ENTRY = 30
+TEXT_MARGIN_ENTRY = [5, 10, 5, 5] # Margem das 4 bordas; [left, top, right, bottom]
 
 # Colors
 PRIMARY_COLOR = "#1e81b0"
