@@ -11,8 +11,8 @@ MINIMUM_WIDTH = 280
 BIG_FONT_SIZE = 50
 MEDIUM_FONT_SIZE = 20
 SMALL_FONT_SIZE = 10
-FONT_SIZE_ENTRY = 30
-TEXT_MARGIN_ENTRY = [5, 10, 5, 5] # Margem das 4 bordas; [left, top, right, bottom]
+FONT_SIZE_DISPLAY = 30
+TEXT_MARGIN_DISPLAY = [5, 10, 5, 5] # Margem das 4 bordas; [left, top, right, bottom]
 
 # Colors
 PRIMARY_COLOR = "#1e81b0"

@@ -1,7 +1,11 @@
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit)
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtGui import QKeyEvent
+from PySide6.QtWidgets import (
+    QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QMessageBox
+)
 from variables import *
+from regulares import Is_empty, Is_num_or_dot
 
 class MainWindow(QMainWindow):
     """
@@ -33,23 +37,67 @@ class MainWindow(QMainWindow):
     def add_widget_layout(self, widget: QWidget):
         self.main_layout.addWidget(widget)
 
-class Entry(QLineEdit):
+    def make_msg_box(self):
+        return QMessageBox(self)
+
+class Display(QLineEdit):
     """
-        Classe responsável pela criação da unica entry (recebe dados) da calculadora;
+        Classe responsável pela criação da unica Display (recebe dados) da calculadora;
         Funções:
-            config_style_entry: Recebe as configurações e características da caixa de entrada;
+            config_style_display: Recebe as configurações e características da caixa de entrada;
     """
+
+    sig_enter = Signal()
+    sig_backspace = Signal()
+    sig_clear = Signal()
+    sig_number_dot = Signal(str | int)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.config_style_entry()
-        self.setPlaceholderText('Digite numeros ...') # Frase fixa dentro da entry
+        self.config_style_display()
+        self.setPlaceholderText('Digite numeros ...') # Frase fixa dentro da display
 
-    def config_style_entry(self):
-        self.setStyleSheet(f'font-size: {FONT_SIZE_ENTRY}px;') # Tamanho da fonte
+    def config_style_display(self):
+        self.setStyleSheet(f'font-size: {FONT_SIZE_DISPLAY}px;') # Tamanho da fonte
         self.setMinimumHeight(BIG_FONT_SIZE) # Tamanho da altura
         self.setMinimumWidth(MINIMUM_WIDTH) # Tamanho da largura
-        self.setAlignment(Qt.AlignmentFlag.AlignRight) # Define a indentação da Entry
-        self.setTextMargins(*TEXT_MARGIN_ENTRY) # Margem das 4 bordas; [left, top, right, bottom]
+        self.setAlignment(Qt.AlignmentFlag.AlignRight) # Define a indentação da display
+        self.setTextMargins(*TEXT_MARGIN_DISPLAY) # Margem das 4 bordas; [left, top, right, bottom]
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        text = event.text().strip() 
+        key = event.key()
+        teclas = Qt.Key
+
+        is_enter = key in [teclas.Key_Enter, teclas.Key_Return]
+        is_backspace = key in [teclas.Key_Backspace, teclas.Key_Delete]
+        is_clear = key in [teclas.Key_C]
+
+        if is_enter or text == '=':
+            print(text)
+            self.sig_enter.emit() # Emiti um sinal
+            return event.ignore
+
+        if is_backspace:
+            print(text)
+            self.sig_backspace.emit() # Emiti um sinal
+            return event.ignore
+
+        if is_clear or text.lower() == 'c':
+            print(text)
+            self.sig_clear.emit() # Emiti um sinal
+            return event.ignore
+
+        if Is_empty(text):
+            return event.ignore
+        
+        if Is_num_or_dot(text):
+            print(text)
+            self.sig_number_dot.emit(text)
+            return event.ignore
+
+        # return super().keyPressEvent(event)
+        # retorna para todas as teclas, sem o return, apenas as tecla selecionadas, seram ativadas 
 
 class Labels(QLabel):
     """
