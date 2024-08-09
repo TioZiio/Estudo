@@ -45,12 +45,17 @@ class Display(QLineEdit):
         Classe responsável pela criação da unica Display (recebe dados) da calculadora;
         Funções:
             config_style_display: Recebe as configurações e características da caixa de entrada;
+            keyPressEvent: Função responsável pela escolha de quais teclas seram permitidas
+                    durante a execução da calculadora. Apenas as teclas selecionadas funcionaram
+                    enquanto a calculadora estiver aberta.
     """
-
+    # Configura variaveis a capacidade que enviar sinais.
     sig_enter = Signal()
     sig_backspace = Signal()
     sig_clear = Signal()
-    sig_number_dot = Signal(str | int)
+    sig_number_dot = Signal(str)
+    sig_operator = Signal(str)
+    sig_invert = Signal()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -65,39 +70,53 @@ class Display(QLineEdit):
         self.setTextMargins(*TEXT_MARGIN_DISPLAY) # Margem das 4 bordas; [left, top, right, bottom]
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
-        text = event.text().strip() 
-        key = event.key()
-        teclas = Qt.Key
+        # Função que define quais teclas podem ser trasmitidas para a calculadora.
+        # Apesar de todas as teclas emitirem sinal quando a calculadora esta aberta, apenas
+        #       algumas consiguiram ser realmente efetivadas.
+        # Essa função deve ser chamada assim para funcionar o evento de sinais.
+
+        text = event.text().strip() # Diz qual tecla foi clicada.
+        key = event.key() # Define quais teclas seram escolhidas.
+        teclas = Qt.Key # Instancia de Qt.Key
 
         is_enter = key in [teclas.Key_Enter, teclas.Key_Return]
         is_backspace = key in [teclas.Key_Backspace, teclas.Key_Delete]
         is_clear = key in [teclas.Key_C]
+        is_operator = key in [
+            teclas.Key_Plus, teclas.Key_Minus, teclas.Key_Asterisk, teclas.Key_Slash, teclas.Key_P
+        ]
+        is_invert = key in [teclas.Key_N]
 
         if is_enter or text == '=':
-            print(text)
             self.sig_enter.emit() # Emiti um sinal
             return event.ignore
 
         if is_backspace:
-            print(text)
             self.sig_backspace.emit() # Emiti um sinal
             return event.ignore
 
-        if is_clear or text.lower() == 'c':
-            print(text)
+        if is_clear or text.upper() == 'C':
             self.sig_clear.emit() # Emiti um sinal
+            return event.ignore
+
+        if is_operator:
+            if text.upper() == 'P':
+                text = '^'
+            self.sig_operator.emit(text) # Emiti um sinal
+            return event.ignore
+
+        if is_clear or text.upper() == 'N':
+            self.sig_invert.emit() # Emiti um sinal
             return event.ignore
 
         if Is_empty(text):
             return event.ignore
         
         if Is_num_or_dot(text):
-            print(text)
             self.sig_number_dot.emit(text)
             return event.ignore
 
-        # return super().keyPressEvent(event)
-        # retorna para todas as teclas, sem o return, apenas as tecla selecionadas, seram ativadas 
+        # return super().keyPressEvent(event) -> Libera para todas as teclas serem permitidas.
 
 class Labels(QLabel):
     """
