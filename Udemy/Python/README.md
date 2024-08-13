@@ -11,3 +11,4 @@ Bibliotecas já usadas:
 5. Argparse
 6. Pypdf2
 7. Openpyxl
+8. Pyside6 (Qt, Designer)

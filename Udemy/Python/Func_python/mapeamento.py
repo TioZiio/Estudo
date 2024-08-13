@@ -15,7 +15,6 @@ for n in produtos:
 print()
 print()
 
-
 # Forma reduzida de mapeamento:
 n_produtos = [
 	{**value, 'preço': value['preço']*5}
