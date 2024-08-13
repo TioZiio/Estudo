@@ -26,6 +26,7 @@ Udemy/Python/Web/style.css
 *.zip*
 *.psm1
 *.ps1
+*.ui
 
 # Ignorar diretórios de build
 /build/
