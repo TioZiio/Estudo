@@ -8,22 +8,41 @@ Twitter/
 Personalização_SHELL
 Udemy/Python/Web/index.html
 Udemy/Python/Web/style.css
+mysql_db
 
 # Extras------------------------
 
-# Ignorar binários compilados
+	# Ignorar binários
+
+# Binários e Arquivos Executáveis
 *.exe
 *.o
 *.obj
-*.txt
-*.env
-*.pdf
-*.xlsx
-*.vscode
-*.zip*
-*.psm1
+
+# Script e Configurações
 *.ps1
+*.psm1
+*.env
+
+# Documentos e Arquivos de Dados
+*.txt
+*.xlsx
+*.pdf
+*.log
+*.db
+
+# Configurações de IDE e Ferramentas
+*.vscode
+
+# Arquivos de Projeto Específico
+*.zip*
 *.ui
+*.yml
+
+# Diretórios Locais
+.local/
+
+	# Diretórios
 
 # Ignorar diretórios de build
 /build/
@@ -35,11 +54,3 @@ venv/
 # Ignorar diretórios de cache
 __pycache__/
 
-# Ignorar arquivos de log
-*.log
-
-# Ignorar arquivos de banco de dados
-*.db
-
-# Ignorar arquivos de configuração local
-*.local
