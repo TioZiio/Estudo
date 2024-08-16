@@ -1,14 +1,10 @@
 # Ignorar diretórios e arquivos específicos
 
-LOL/leagueoflegends.txt
-LOL/nomes.txt
-LOL/test.py
-Projeto_Tkinter/pipocaria_imperial
 Twitter/
 Personalização_SHELL
 Udemy/Python/Web/index.html
 Udemy/Python/Web/style.css
-mysql_db
+mysql_data
 
 # Extras------------------------
 
