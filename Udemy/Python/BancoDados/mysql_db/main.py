@@ -14,19 +14,26 @@ class MainCommand():
         load_dotenv()
         self.TABLE_NAME = 'customers'
         
-        self.startConnect()
-        self.organizeCommands()
+        if self.startConnect() == True:
+            self.organizeCommands()
 
     def startConnect(self):
-        self.conn = pymysql.connect(
-            host=os.getenv('MYSQL_HOST'),
-            user=os.getenv('MYSQL_USER'),
-            password=os.getenv('MYSQL_PASSWORD'),
-            database=os.getenv('MYSQL_DATABASE'),
-            port=int(os.getenv('MYSQL_PORT'))
-        )
-        self.cursor = self.conn.cursor()
-    
+        try:   
+            self.conn = pymysql.connect(
+                host=os.getenv('MYSQL_HOST'),
+                user=os.getenv('MYSQL_USER'),
+                password=os.getenv('MYSQL_PASSWORD'),
+                database=os.getenv('MYSQL_DATABASE'),
+                port=int(os.getenv('MYSQL_PORT'))
+            )
+            self.cursor = self.conn.cursor()
+        except Exception as err:
+            print('Conexão não estabelecida')
+            print(f'Log startConnect: {err}')
+            return False
+        else:
+            return True
+
     def tryExceptFinally(self, func):
         try:
             print(f'Log func completed: {func.__name__}')
@@ -165,19 +172,19 @@ class MainCommand():
     def organizeCommands(self):
         with self.conn:
             with self.cursor:
-                # self.tryExceptFinally(self.testConnect)
+                self.tryExceptFinally(self.testConnect)
                 # C - Create
                 # self.tryExceptFinally(self.createTable)
                 self.tryExceptFinally(self.insertTable)
                 self.tryExceptFinally(self.insertDictTable)
                 self.tryExceptFinally(self.insertManyTable)
                 # R - Read
-                # self.tryExceptFinally(self.selectAllDatasToTable)
+                self.tryExceptFinally(self.selectAllDatasToTable)
                 self.tryExceptFinally(self.selectEspecificData)
                 # U - Update
                 self.tryExceptFinally(self.updateData)
                 # D - Delete
-                # self.tryExceptFinally(self.deleteData)
+                self.tryExceptFinally(self.deleteData)
                 self.tryExceptFinally(self.clearTable)
 
 if __name__ == '__main__':
