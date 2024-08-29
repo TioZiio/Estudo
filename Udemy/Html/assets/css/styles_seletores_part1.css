@@ -1,0 +1,60 @@
+/* No CSS existe o conseito de hierarquia, então caso seja aplicado algum estilo em um objeto superior,
+sera repassado aos inferiores, a penos que seja especificado ou excluido. */
+/* Pode tirar a hierarquia aplicando o initial: */
+div {
+    color: initial;
+}
+
+/* Aplica em todos */
+* {
+    margin: 0;
+    padding: 0;
+}
+/* Aplica apenas na classe "Geral" */
+body {
+    background: rgba(0, 0, 0, 0.3);
+}
+/* Seleciona de forma especifica a classe */
+body div h1,
+body div p {
+    color: aqua;
+}
+body div section.frieren h2,
+body div section.frieren p {
+    color: red;
+    font-size: 12vw;
+}
+/* Seleciona pela classe e especificando qual objeto */
+.main section{
+    background: rgba(99, 0, 0, 0.3);
+}
+/* Seleciona por classes, aprimeira a classe maior seguindo a hierarquia */
+.main .kazuma {
+    color: blue;
+    font-size: 8vw;
+}
+/* Seleciona pela classe mas especifica o objeto "p" com sua classe */
+.main p.kazulixo {
+    color: deeppink;
+    background: rgba(0, 52, 99, 0.3);
+    text-align: center;
+}
+/* Seleciona o objeto que possua 2 classes */
+.inicial.init {
+    color: aliceblue;
+    text-align: center;
+    font-size: 10vw;
+}
+
+div.rpg {
+    font-size: 30px;
+    margin-left: 20px;
+}
+/* O ">" seleciona um filho hierarquico diretamente */
+.rpg .fist > .second {
+    color: greenyellow;
+}
+/* Seleciona adjacentes, o "+" indica que na classe fist após o span, o próximo h3 recebe */
+div.fist span+h3 {
+    color: rgb(117, 86, 146);
+}
