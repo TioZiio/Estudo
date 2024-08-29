@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80vw;
+        }
+        table td, table th {
+            border: 1px solid purple;
+            padding: 5px;
+            text-align: center;
+        }
+        table caption {
+            caption-side: bottom;
+            margin: 5px;
+            text-align: left;
+        }
+        table tfoot{
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <p>Paragrafo aqui!!</p>
+
+    <table>
+        <caption>Description Table!</caption>
+        <thead>
+            <tr> <!-- Cabeçario -->
+                <th>Título 1</th>
+                <th>Título 2</th>
+                <th>Título 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr> <!-- Linhas 2 -->
+                <td>Corpo 1</td>
+                <td>Corpo 2</td>
+                <td rowspan="2">Usa 2 Colunas</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr> <!-- Linhas 3 -->
+                <td colspan="2">Usa 2 espaços</td>
+                <td></td>
+            </tr>
+        <tbody>
+            <tr> <!-- Linhas 1 -->
+                <td colspan="3">Usa 3 espaços</td>
+            </tr>
+        </tbody>
+        </tbody>
+        <tfoot> <!-- Rodape, adiciona ao final do table-->
+            <tr>
+                <td colspan="3">Tem um afrase interessante aki</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr> <!-- Linhas 3 -->
+                <td>Corpo 4</td>
+                <td>Corpo 5</td>
+                <td>Corpo 6</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

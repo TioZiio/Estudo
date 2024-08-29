@@ -65,8 +65,13 @@ function calculadora_calculo_simples()
             verificador=1
         ;;
         /)
-            resultado=$(echo "scale=1; $valor_1 / $valor_2" | bc )
-            verificador=1
+	    if [[ $valor_1 -eq 0 || $valor_2 -eq 0 ]]; then
+		echo "Erro de divisão por 0"
+		verificador=0
+	    else
+	        resultado=$(echo "scale=1; $valor_1 / $valor_2" | bc )
+        	verificador=1
+	    fi
         ;;
         *)
             echo "Escolha de operador Inválido!"
@@ -93,8 +98,13 @@ function calculadora_calculo_complexo()
     # É utilizado o echo para passar o calculo como entrada para o comando BC,
     # por isso de sua utilização durante o calculo;
 {
-    resultado=$( echo "scale=2; $complexa" | bc)
-    echo ''
+    resultado=$( echo "scale=2; $complexa" | bc -l )
+    if [ $resultado -eq *"Runtime error"* ]; then
+	echo $?
+	verificador=0
+    else
+	verificador=1
+    fi
 }
 
 calculadora # Chama a função de escolha da calculadora
@@ -108,14 +118,17 @@ if [ $escolha -eq 1 ]; then
     # Verifica se ocorreu algum erro durante o processo de calculo:
     if [ $verificador -eq 1 ]; then
         echo "Calculo: $valor_1 $operador $valor_2 = $resultado"
-    else
-        echo 'Erro ao digitar comandos'
     fi
 elif [ $escolha -eq 2 ]; then
     calculadora_complexa
     calculadora_calculo_complexo
     sleep 1
-    echo "Calculo: $complexa = $resultado"
+    echo $verificador
+    if [ $verificador -eq 1 ]; then
+	echo "Calculo: $complexa = $resultado"
+    else
+        echo "to aki"
+    fi
 else
     echo "A sua escolha $escolha foi Inválida!"
 fi
