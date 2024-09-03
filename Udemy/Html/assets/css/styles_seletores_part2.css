@@ -26,15 +26,16 @@ form {
     background-image: url(../imagens/kazuma.jpeg);
     background-size: auto;
     background-position: center;
-    background-attachment:local;
+    background-attachment: local;
 }
 
 /* Seleciona um atributo de acordo com o tipo */
 input[type="radio"] {
     transform: scale(1.5);
 }
-form h1 {
+h1 {
     background: rgba(16, 34, 197, 0.5);
+    text-align: center;
 }
 /* O metodo transition é capaz de configirar o time de animação do clique */
 form p.racas-types {
@@ -53,9 +54,13 @@ input[type="checkbox"] {
     margin-top: 5vw;
     transform: scale(3.0);
 }
-
+/* Quando o "input" estiver marcado, o proximo elemento será alterado */
 input:checked + p.tx {
     color: pink;
     text-align: center;
     font-size: 10vw;
+}
+/* Seleciona os filhos da "ul", com a possibilidade de escolher qual a posição */
+ul li:nth-child(2) {
+    background: red;
 }

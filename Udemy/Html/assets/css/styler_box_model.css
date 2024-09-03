@@ -1,0 +1,40 @@
+
+/* 
+Todos os displays tem um valor padronizado, seja block ou inline 
+Caso seja em bloco, ele ocupa 100%
+
+eixo-x - eixo horizontal
+eixo-y - eixo vertical
+
+Quando se define valores para altura e largura, o tamanho da tela vizualizado irá se alterar.
+Logo, definir os maximos e os minimos pra cada tamanho de tela pode auxiliar.
+
+Para margem,paddin ou valores de top, left, bottom, right. Lembre do sentido horário do relógio
+
+Ordem de boxes: 
+1 - margin: refere-se a distancia entre blocos.
+2 - border: refere-se a bordar do bloco.
+3 - padding: refere-se a distancia entre a borda e o conteúdo.
+4 - conteúdo: refere-se ao conteúdo central.
+
+Por padrão (box-sizing: content-box), todo este 4 valores, são somados:
+2*10px margin + 2*5px border + 2*20px padding + conteúdo = 70px + conteúdo.
+Desta forma apenas irá crescendo a pagina, com + e + pixels.
+
+*/
+
+.texto {
+    box-sizing: content-box;
+    display: block; /*É padrão, logo reduntante*/
+    background: greenyellow;
+    width: 100%; /*Tamanho da largura - Controla o conteúdo*/
+    height: 100%; /*Tamanho da altura - Controla o conteúdo*/
+    max-width: 350px; /*Maximo da largura, independente do tamanho de tela*/
+    max-height: 150px; /*Maximo da altura, independente do tamanho de tela*/
+    min-width: 80px; /*Minimo da largura, independente do tamanho de tela*/
+    min-height: 50px; /*Minimo da altura, independente do tamanho de tela*/
+    overflow: auto; /*Controla valores que ultrapassem os tamanhos dos blocos*/
+    margin: 0 auto 20px auto;
+    padding: 5px 20px; 
+    border: 5px solid black;
+}
