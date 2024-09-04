@@ -38,3 +38,17 @@ Desta forma apenas irá crescendo a pagina, com + e + pixels.
     padding: 5px 20px; 
     border: 5px solid black;
 }
+
+.grid::after {
+    content: '';
+    display: block;
+    clear: both; /* Limpa qualquer contrução de espaço */
+}
+
+.grid .col {
+    width: 100px;
+    height: 100px;
+    background: blue;
+    margin: 10px;
+    float: left; /* Torna flutuante, diferentes de blocos que ocupam todo uma linha */
+}

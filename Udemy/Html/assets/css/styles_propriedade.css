@@ -1,0 +1,19 @@
+
+/* Propriedades de Textos */
+p {
+    color: violet; /* Cor do texto */
+    background-color:rgba(0, 0, 0, 0.8); /* Cor de fundo */
+    font-size: 50px; /* tamahno do texto */
+    font-style: italic; /* tipo de escrita */
+    font-weight: 700; /*  */
+    direction: ltr; /* Direção da escrita, da esquerda para direita */
+    letter-spacing: 2px; /* espaço entre as letras */
+    word-spacing: 10%; /* espaço entre cada palavra */
+    line-height: 80px; /* altura da linha */
+    text-align: justify; /* margens como no Word, como o center */
+    text-decoration: underline; /* linhas "_____" no texto, embaixo ou em cima */
+    text-indent: 150px; /* O espaço na primeria linha do paragrafo */
+    text-shadow: 5px 5px 2px green; 
+    /* Da a sombra no texto, sendo na ordem: esquerda; descida; fumaça; cor */
+    text-transform: capitalize; /* padroniza em alguns metodos, como upper, lower e capitalize */
+}
