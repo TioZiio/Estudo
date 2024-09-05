@@ -1,0 +1,54 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flex-contain {
+    display: flex;
+    /* 
+    De acordo com essa escolha, o justify e align serão diferentes
+    Caso seja em colunas, o justify sera o "x" e align será o "y" e o inveso ocorre
+     */
+    justify-content: space-between;
+    background: black;
+}
+
+div .flex-item {
+    background: lawngreen;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid lawngreen;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+}
+
+div .flex-item:hover {
+    background: black
+}
+
+div .flex-item a {
+    text-decoration: none;
+}
+
+div .flex-item a:hover {
+    color: white;
+}
+
+.blocos {
+    display: flex;
+}
+
+div .sub-blocos {
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 27, 165, 0.596);
+    margin: 15px;
+    padding: 10px 30px;
+}
+
+div .sub-blocos p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
