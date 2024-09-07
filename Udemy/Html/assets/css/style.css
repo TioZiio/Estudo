@@ -1,0 +1,73 @@
+:root {
+    --gap: 30px;
+    --color-letter: #020944;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Open Sans", system-ui;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-variation-settings:
+        "wdth" 97;
+    font-size: 1.6rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main-bg {
+    background-image: url(../imagens/background.svg);
+    background-position: center center;
+}
+
+.section-view {
+    min-height: 100vh;
+}
+
+body .menu {
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+body .main-content {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: var(--gap);
+}
+
+body .menu-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+body .main-content h1 {
+    font-size: 2.3rem;
+    color: var(--color-letter);
+    text-transform: uppercase;
+}
+
+body .main-content a {
+    display: block;
+    color: inherit;
+}
+
+body .main-content ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
