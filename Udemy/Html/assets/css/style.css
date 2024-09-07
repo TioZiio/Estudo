@@ -1,6 +1,8 @@
 :root {
     --gap: 30px;
-    --color-letter: #020944;
+    --color-main: rgba(2, 9, 68);
+    --color-main-shadowed: rgba(2, 9, 68, 0.3);
+    --main-background: url(../imagens/background.svg);
 }
 
 * {
@@ -19,7 +21,6 @@ body {
     font-style: italic;
     font-variation-settings:
         "wdth" 97;
-    font-size: 1.6rem;
 }
 
 a {
@@ -27,7 +28,8 @@ a {
 }
 
 .main-bg {
-    background-image: url(../imagens/background.svg);
+    background-image: var(--main-background);
+    background-size: auto;
     background-position: center center;
 }
 
@@ -36,38 +38,59 @@ a {
 }
 
 body .menu {
-    background: white;
+    background: var(--main-background);
     position: fixed;
+    max-width: 100rem;
+    margin: 0 auto;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-}
-
-body .main-content {
-    max-width: 100rem;
-    margin: 0 auto;
-    padding: var(--gap);
+    border-bottom: 3px solid white;
+    border-top: 3px solid white;
 }
 
 body .menu-content {
     display: flex;
     justify-content: space-between;
+    color: var(--color-main);
+    margin: 0;
 }
 
-body .main-content h1 {
+body .menu-content h1 {
     font-size: 2.3rem;
-    color: var(--color-letter);
     text-transform: uppercase;
 }
 
-body .main-content a {
-    display: block;
-    color: inherit;
-}
-
-body .main-content ul {
+body .menu-content ul {
     display: flex;
     justify-content: space-between;
     list-style: none;
 }
+
+body .menu-content a {
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    font-size: 1.8rem;
+    position: relative;
+}
+
+body .menu-content h1, nav {
+    background: white;
+}
+
+/* #1  */ 
+body .menu-content a {
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    font-size: 1.8rem;
+    position: relative;
+}
+body .menu-content ul li a:hover{
+    background: var(--main-background);
+    color: white;
+    transform: scale(1.2);
+}
+/* #1 */
