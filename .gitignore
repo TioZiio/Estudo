@@ -27,6 +27,8 @@ asserts/imagens
 *.pdf
 *.log
 *.db
+*.png
+*.jpeg
 
 # Configurações de IDE e Ferramentas
 *.vscode

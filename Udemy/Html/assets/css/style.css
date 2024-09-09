@@ -13,18 +13,20 @@
 
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: "Open Sans", system-ui;
-    font-optical-sizing: auto;
-    font-style: italic;
-    font-variation-settings:
-        "wdth" 97;
+    max-width: 100rem;
+    margin: 0 auto;
 }
 
 a {
     text-decoration: none;
+}
+
+ul {
+    list-style: none;
 }
 
 .main-bg {
@@ -33,10 +35,23 @@ a {
     background-position: center center;
 }
 
+.my-font {
+    font-family: "Open Sans", system-ui;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-variation-settings:
+        "wdth" 97;
+}
+
 .section-view {
     min-height: 100vh;
 }
 
+.menu-spacing {
+    height: 6.8rem;
+}
+
+/* Configurações da ToolBar (menu) */
 body .menu {
     background: var(--main-background);
     position: fixed;
@@ -58,21 +73,20 @@ body .menu-content {
 }
 
 body .menu-content h1 {
-    font-size: 2.3rem;
+    font-size: 1.8rem;
     text-transform: uppercase;
 }
 
 body .menu-content ul {
     display: flex;
     justify-content: space-between;
-    list-style: none;
 }
 
 body .menu-content a {
     color: inherit;
     display: block;
     padding: 2rem;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     position: relative;
 }
 
@@ -80,11 +94,10 @@ body .menu-content h1, nav {
     background: white;
 }
 
-/* #1  */ 
 body .menu-content a {
     color: inherit;
     display: block;
-    padding: 2rem;
+    padding: 1rem;
     font-size: 1.8rem;
     position: relative;
 }
@@ -93,4 +106,151 @@ body .menu-content ul li a:hover{
     color: white;
     transform: scale(1.2);
 }
-/* #1 */
+/* Fim das configurações da ToolBar (menu) */
+
+/* Configurações da introdução */
+
+body .section-apresentation {
+    font-size: 2.5rem;
+    color: white;
+}
+
+body .section-apresentation .intro-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--gap);
+    align-items: center;
+}
+
+body .section-apresentation .intro-text-content {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin-top: 20%;
+    margin-left: 2rem;
+}
+
+body .section-apresentation .intro-text-content p {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;    
+}
+
+body .section-apresentation .intro-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;
+}
+
+body .section-apresentation .intro-img img{
+    max-height: 75%;
+    max-width: 75%;
+    object-fit: cover;
+    border: 0.2rem solid white;
+    border-radius: 10%;
+}
+/* Fim das configurações da introdução */
+
+/* Configurações do conhecimento */
+
+.section-expertise {
+    background: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body .section-expertise .leranig-content {
+    height: 90%;
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+body .section-expertise .leranig-content .article-content {
+    margin: 0 1rem;
+    border: 0.1rem solid var(--color-main);
+    color: white;
+    background: var(--main-background);
+    overflow: auto;
+
+}
+
+body .section-expertise .leranig-content h3 {
+    text-align: center;
+    font-size: 5rem;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+body .section-expertise .leranig-content p {
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+body .section-expertise .leranig-content ul {
+    column-count: 2;
+}
+
+body .section-expertise .leranig-content li {
+    font-size: 1.5rem;
+    padding-left: 2rem;
+}
+
+/* Fim configurações do conhecimento */
+
+/* ??? */
+
+body .section-val {
+    background: rgba(0, 0, 0, 0.3);
+    padding-top: -2rem;
+}
+
+/* ??? */
+
+/* Configurações dos hobbies */
+
+body .section-hobbies {
+    background: rgba(0, 0, 0, 0.3);
+    padding-top: -2rem;
+    margin-top: 2rem;
+    border: 0.2rem solid white;
+    border-radius: 15%;
+}
+
+body .section-hobbies .hobbies-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+body .section-hobbies .hobbies-content h3 {
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+body .section-hobbies .hobbies-content .boxe,
+body .section-hobbies .hobbies-content .bike {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+body .section-hobbies .hobbies-content img {
+    width: 26rem;
+    height: 26rem;
+    padding: 1rem;
+    border-radius: 15%;
+}
+
+body .section-hobbies .hobbies-content img:hover {
+    transform: scale(1.8);
+}
+
+/* Fim configurações dos hobbies */
