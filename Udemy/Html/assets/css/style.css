@@ -49,6 +49,10 @@ ul {
 
 .menu-spacing {
     height: 6.8rem;
+} 
+
+.end-spacing {
+    height: 15rem;
 }
 
 /* Configurações da ToolBar (menu) */
@@ -63,6 +67,7 @@ body .menu {
     width: 100%;
     border-bottom: 3px solid white;
     border-top: 3px solid white;
+    z-index: 1000;
 }
 
 body .menu-content {
@@ -101,6 +106,7 @@ body .menu-content a {
     font-size: 1.8rem;
     position: relative;
 }
+
 body .menu-content ul li a:hover{
     background: var(--main-background);
     color: white;
@@ -151,7 +157,7 @@ body .section-apresentation .intro-img img{
 }
 /* Fim das configurações da introdução */
 
-/* Configurações do conhecimento */
+/* Configurações de learning */
 
 .section-expertise {
     background: white;
@@ -161,14 +167,14 @@ body .section-apresentation .intro-img img{
     justify-content: center;
 }
 
-body .section-expertise .leranig-content {
+body .section-expertise .learnig-content {
     height: 90%;
     padding-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
-body .section-expertise .leranig-content .article-content {
+body .section-expertise .learnig-content .article-content {
     margin: 0 1rem;
     border: 0.1rem solid var(--color-main);
     color: white;
@@ -177,36 +183,40 @@ body .section-expertise .leranig-content .article-content {
 
 }
 
-body .section-expertise .leranig-content h3 {
+body .section-expertise .learnig-content h3 {
     text-align: center;
     font-size: 5rem;
     background: rgba(0, 0, 0, 0.3);
 }
 
-body .section-expertise .leranig-content p {
+body .section-expertise .learnig-content p {
     font-size: 2rem;
-    padding: 2rem;
+    padding: 1rem;
 }
 
-body .section-expertise .leranig-content ul {
+body .section-expertise .learnig-content ul {
     column-count: 2;
 }
 
-body .section-expertise .leranig-content li {
+body .section-expertise .learnig-content li {
     font-size: 1.5rem;
     padding-left: 2rem;
 }
 
-/* Fim configurações do conhecimento */
+/* Fim configurações de learning */
 
-/* ??? */
+/* 2° configuração de learning */
 
-body .section-val {
-    background: rgba(0, 0, 0, 0.3);
-    padding-top: -2rem;
+body .section-expertise .learnig-content .html a {
+    color: #00FFFF;
 }
 
-/* ??? */
+body .section-expertise .learnig-content .html .observacao p {
+    font-size: 1.2rem;
+    color: red;
+}
+
+/*  Fim 2° configuração de learning */
 
 /* Configurações dos hobbies */
 
@@ -229,12 +239,11 @@ body .section-hobbies .hobbies-content h3 {
     font-size: 5rem;
     color: white;
     text-align: center;
-    margin: 2rem;
+    margin: 0.8rem;
     padding: 2rem;
 }
 
-body .section-hobbies .hobbies-content .boxe,
-body .section-hobbies .hobbies-content .bike {
+body .section-hobbies .hobbies-content .esportes {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -243,14 +252,25 @@ body .section-hobbies .hobbies-content .bike {
 }
 
 body .section-hobbies .hobbies-content img {
-    width: 26rem;
-    height: 26rem;
+    width: 20rem;
+    height: 20rem;
     padding: 1rem;
     border-radius: 15%;
+    transition: 0.3s ease-in-out;
 }
 
 body .section-hobbies .hobbies-content img:hover {
-    transform: scale(1.8);
+    transform: scale(1.4);
+}
+
+body .section-hobbies .hobbies-content .animes {
+    height: 100%;
+    margin: 0 auto;
+    color: white;
+}
+
+body .section-hobbies .hobbies-content .animes caption {
+    text-align: left;
 }
 
 /* Fim configurações dos hobbies */
