@@ -52,10 +52,6 @@ ul {
     height: 6.8rem;
 } 
 
-.end-spacing {
-    height: 15rem;
-}
-
 /* Configurações da ToolBar (menu) */
 body .menu {
     background: var(--main-background);
@@ -86,14 +82,6 @@ body .menu-content h1 {
 body .menu-content ul {
     display: flex;
     justify-content: space-between;
-}
-
-body .menu-content a {
-    color: inherit;
-    display: block;
-    padding: 2rem;
-    font-size: 1.3rem;
-    position: relative;
 }
 
 body .menu-content h1, nav {
@@ -180,7 +168,7 @@ body .section-expertise .learnig-content .article-content {
     border: 0.1rem solid var(--color-main);
     color: white;
     background: var(--main-background);
-    overflow: hidden;
+    overflow: auto;
 }
 
 body .section-expertise .learnig-content h3 {
@@ -298,15 +286,14 @@ body .section-hobbies .hobbies-content .animes table > caption {
 /* Configurações Contacts */
 
 body .section-contacts {
-    color: white;
-    margin-top: 5rem;
     padding-top: 5rem;
+    color: white;
     background: var(--main-background);
 }
 
 body .section-contacts .contact-content {
     display: grid;
-    grid-template-rows: 1fr 2.5fr;
+    grid-template-rows: 1fr 2fr;
 }
 
 body .section-contacts .contact-content .contact-my-content {
@@ -316,6 +303,7 @@ body .section-contacts .contact-content .contact-my-content {
     grid-template-columns: 2fr 1.5fr;
     gap: var(--gap);
     align-items: center;
+    margin-bottom: 3rem;
 }
 
 body .section-contacts .contact-content .contact-my-content .contact-img {
@@ -329,7 +317,7 @@ body .section-contacts .contact-content .contact-my-content .contact-img img {
     height: 100%;
 }
 
-body .section-contacts .contact-content .contact-my-content .contact-text-content h3 {
+body .section-contacts .contact-content .contact-my-content .contact-text-content h2 {
     font-size: 3rem;
     margin: 1rem;
 }
@@ -339,9 +327,18 @@ body .section-contacts .contact-content .contact-my-content .contact-text-conten
     margin-left: 2rem;
 }
 
+body .section-contacts .contact-content .contact-my-content .contact-text-content p a {
+    color: var(--color-blue-ciano);
+}
+
+body .section-contacts .contact-content .contact-my-content .observacao {
+    grid-column: span 2;
+    font-size: 2rem;
+    color: red;
+    text-align: center;
+}
+
 body .section-contacts .contact-content .form-content fieldset {
-    height: 100%;
-    margin-top: 5rem;
     display: flex;
     flex-flow: row wrap;
     gap: var(--gap)
@@ -349,6 +346,58 @@ body .section-contacts .contact-content .form-content fieldset {
 
 body .section-contacts .contact-content .form-content fieldset legend {
     font-size: 3.5rem;
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group {
+    flex: 1 1 32rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group label {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group input,
+body .section-contacts .contact-content .form-content fieldset .form-group textarea {
+    border: none;
+    background: white;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    font-size: 2rem;
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group input::placeholder,
+body .section-contacts .contact-content .form-content fieldset .form-group textarea::placeholder {
+    color: rgba(101, 107, 107, 0.616);
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group input:focus,
+body .section-contacts .contact-content .form-content fieldset .form-group textarea:focus {
+    box-shadow: 0 0 1.5rem 0.5rem var(--color-blue-ciano);
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group button {
+    background: none;
+    color: white;
+    border: 0.5rem solid white;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+
+body .section-contacts .contact-content .form-content fieldset .form-group button:hover {
+    background: white;
+    color: var(--color-main);
+}
+
+body .section-contacts .contact-content .form-content fieldset .expansive-hundred {
+    width: 100%;
+    flex: 1 1 100%;
 }
 
 /* Fim configurações Contacts */
