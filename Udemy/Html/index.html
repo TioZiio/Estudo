@@ -14,14 +14,16 @@
 </head>
 
 <body class="main-bg my-font">
+    <input type="checkbox" class="close-menu" name="close-menu" id="close-menu" aria-label="close-menu" role="button">
+    <label for="close-menu" class="close-menu-label" title="close-menu"></label>
     <aside class="menu">
         <div class="menu-content">
-            <h1>
+            <h1 onclick="getElementById('close-menu').checked = false;">
                 <a href="#">LOGO</a>
             </h1>
 
             <nav>
-                <ul>
+                <ul onclick="getElementById('close-menu').checked = false;">
                     <li><a href="#menu-spacing">Introduction</a></li>
                     <li><a href="#learnig">Learnig</a></li>
                     <li><a href="#learnig-two">Learing 2</a></li>
@@ -42,9 +44,10 @@
                 <p>Em 2023, tive a oportunidade de iniciar meus estudos na área de TI, estou focado em me especializar
                     em desenvolvimento de sistemas. Atualmente, estou aprimorando minhas habilidades em Python e em
                     conjunto com o prompt Linux. Além de estudar sobre protocolos, sistemas e portas de comunicação. Meu
-                    objetivo é construir uma carreira sólida na área de segurança da informação, com o objetivo de me tornar um especialista em testes de penetração (pentest).</p>
-                <p>Estou sempre buscando novos desafios e oportunidades para aplicar meus conhecimentos, contribuir para
-                    projetos inovadores e continuar meu desenvolvimento profissional no campo da tecnologia.</p>
+                    objetivo é construir uma carreira sólida na área de segurança da informação, com o objetivo de me
+                    tornar um especialista em testes de penetração (pentest).</p>
+                <p>Atualmente curso Tecnólogo em Segurança da Informação pelo IESB. A prrevisão de formatura é de 09/2025.
+                </p>
             </div>
             <div class="intro-img">
                 <img src="assets/imagens/eu.jpeg" alt="minha foto de apresentação">
@@ -57,7 +60,11 @@
             <article class="article-content python">
                 <h3>Python</h3>
                 <div>
-                    <p>Tenho um ano de experiência com Python, uma linguagem que aprecio profundamente pela sua simplicidade e pela ampla gama de recursos que oferece para resolver problemas de forma eficiente. Como afirmou Guido van Rossum, criador do Python, a linguagem foi projetada para ser 'simples, fácil de ler e de aprender', características que tornam o desenvolvimento mais intuitivo e produtivo.</p>
+                    <p>Tenho um ano de experiência com Python, uma linguagem que aprecio profundamente pela sua
+                        simplicidade e pela ampla gama de recursos que oferece para resolver problemas de forma
+                        eficiente. Como afirmou Guido van Rossum, criador do Python, a linguagem foi projetada para ser
+                        'simples, fácil de ler e de aprender', características que tornam o desenvolvimento mais
+                        intuitivo e produtivo.</p>
                     <p>Algumas bibliotecas já usadas:</p>
                     <ul>
                         <li>Json</li>
@@ -78,19 +85,25 @@
             <article class="article-content linux">
                 <h3>Linux</h3>
                 <div>
-                    <p>Venho utilizando o sistema operacional Linux há aproximadamente um ano. Embora o início tenha sido desafiador, especialmente para compreender o funcionamento dos aplicativos e das funcionalidades do sistema, assim como o uso do terminal, hoje já sou capaz de automatizar tarefas e executar diversas ações diretamente pelo prompt de comando.</p>
+                    <p>Venho utilizando o sistema operacional Linux há aproximadamente um ano. Embora o início tenha
+                        sido desafiador, especialmente para compreender o funcionamento dos aplicativos e das
+                        funcionalidades do sistema, assim como o uso do terminal, hoje já sou capaz de automatizar
+                        tarefas e executar diversas ações diretamente pelo prompt de comando.</p>
                 </div>
             </article>
         </div>
     </section>
 
-    <section class="section-expertise" id="learnig-two" >
+    <section class="section-expertise" id="learnig-two">
         <div class="learnig-content">
             <article class="article-content html">
                 <h3>HTML e CSS</h3>
                 <div>
-                    <p>Durante o curso de Python na Udemy, foi apresentado um pequeno curso de HTML e CSS. Esta página vem deste curso de HTML, nele me foi mostrado alguns conceitos básicos para melhor entender sobre páginas Web.</p>
-                    <p>Em cada conteúdo dos videos da aula do curso, foi criada páginas para colocar em prática os conceitos teórico estudado. Estes são os links de cada conteúdo estudado:</p>
+                    <p>Durante o curso de Python na Udemy, foi apresentado um pequeno curso de HTML e CSS. Esta página
+                        vem deste curso de HTML, nele me foi mostrado alguns conceitos básicos para melhor entender
+                        sobre páginas Web.</p>
+                    <p>Em cada conteúdo dos videos da aula do curso, foi criada páginas para colocar em prática os
+                        conceitos teórico estudado. Estes são os links de cada conteúdo estudado:</p>
                     <div>
                         <ul>
                             <li><a href="pages/introduce_HTML.html" target="_blank">Introdução HTML</a></li>
@@ -108,14 +121,18 @@
                         </ul>
                     </div>
                     <footer class="observacao">
-                        <p>OBS.: Algumas páginas aparecem vazias, o exercício está no CSS, por este motivo não há muitos elementos na página.</p>
+                        <p>OBS.: Algumas páginas aparecem vazias, o exercício está no CSS, por este motivo não há muitos
+                            elementos na página.</p>
                     </footer>
                 </div>
             </article>
             <article class="article-content redes">
                 <h3>Redes e Segurança</h3>
                 <div>
-                    <p>Através dos meus estudos, tive a oportunidade de estudar redes e segurança da informação. Aprofundei-me em conceitos como protocolos, camadas de rede, e as técnicas utilizadas por atacantes para obter acesso a dados sensíveis. Além disso, estudei diferentes tipos de ataques, compreendendo seus objetivos e modos de operação.
+                    <p>Através dos meus estudos, tive a oportunidade de estudar redes e segurança da informação.
+                        Aprofundei-me em conceitos como protocolos, camadas de rede, e as técnicas utilizadas por
+                        atacantes para obter acesso a dados sensíveis. Além disso, estudei diferentes tipos de ataques,
+                        compreendendo seus objetivos e modos de operação.
                     </p>
                     <p>Tipos de ataques</p>
                     <ul>
@@ -128,7 +145,7 @@
         </div>
     </section>
 
-    <section class="section-hobbies section-view" id="hobbies" >
+    <section class="section-hobbies section-view" id="hobbies">
         <div class="hobbies-content">
             <h3>Boxe / Muaythai / Bike</h3>
             <div class="esportes">
@@ -206,7 +223,8 @@
                     <h2>David Mendes de Araújo Ferreira</h2>
                     <p>Phone: <a href="http://w.app/Q5oJBR" target="_blank">(+55) 61 9-9315-4282</a></p>
                     <p>E-mail: davidmaf@gmail.com</p>
-                    <p>Linkedin: <a href="https://www.linkedin.com/in/david-m-araujo" target="_blank">david-m-araujo</a></p>
+                    <p>Linkedin: <a href="https://www.linkedin.com/in/david-m-araujo" target="_blank">david-m-araujo</a>
+                    </p>
                     <p>GitHub: <a href="https://github.com/TioZiio">TioZiio</a></p>
                 </div>
                 <div class="contact-img">
@@ -233,7 +251,8 @@
                     </div>
                     <div class="form-group expansive-hundred">
                         <label for="message">Message</label>
-                        <textarea name="message" id="message" cols="30" rows="6" placeholder="Your Message..."></textarea>
+                        <textarea name="message" id="message" cols="30" rows="6"
+                            placeholder="Your Message..."></textarea>
                     </div>
                     <div class="form-group expansive-hundred">
                         <button type="submit">Send Message</button>
@@ -242,6 +261,12 @@
             </div>
         </div>
     </section>
+
+    <footer class="create">
+        <p>Criado por David Mendes</p>
+    </footer>
+
+    <a class="back-to-top" href="#">♠</a>
 </body>
 
 </html>

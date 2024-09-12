@@ -52,6 +52,27 @@ ul {
     height: 6.8rem;
 } 
 
+.close-menu {
+    display: none;
+}
+
+.back-to-top {
+    font-style: normal;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: white;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 0.2rem solid var(--color-main-shadowed);
+    color: var(--color-main);
+    font-size: 5rem;
+}
+
 /* Configurações da ToolBar (menu) */
 body .menu {
     background: var(--main-background);
@@ -64,7 +85,7 @@ body .menu {
     width: 100%;
     border-bottom: 3px solid white;
     border-top: 3px solid white;
-    z-index: 1000;
+    z-index: 10;
 }
 
 body .menu-content {
@@ -232,9 +253,9 @@ body .section-hobbies .hobbies-content h3 {
 
 body .section-hobbies .hobbies-content .esportes {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
     gap: 2rem;
 }
 
@@ -301,7 +322,6 @@ body .section-contacts .contact-content .contact-my-content {
     height: 100%;
     display: grid;
     grid-template-columns: 2fr 1.5fr;
-    gap: var(--gap);
     align-items: center;
     margin-bottom: 3rem;
 }
@@ -401,3 +421,99 @@ body .section-contacts .contact-content .form-content fieldset .expansive-hundre
 }
 
 /* Fim configurações Contacts */
+
+/* Footer */
+body .create {
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+    background: white;
+    color: var(--color-main);
+    font-size: 1.5rem;
+    text-align: center;
+}
+/* Fim Footer */
+
+/* Media queries */
+
+@media (max-width: 860px) {
+    body .section-contacts .contact-content .contact-my-content {
+        grid-template-columns: 1.5fr 1fr;
+        margin-bottom: 0;
+    }
+    body .section-hobbies .hobbies-content .esportes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    body .section-expertise .learnig-content {
+        grid-template-columns: 1fr;
+    }
+    body .section-expertise .learnig-content .article-content {
+        margin: 10px;
+    }
+}
+@media (max-width: 515px) {
+    body .section-hobbies .hobbies-content .esportes {
+        grid-template-columns: 1fr;
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 547px) {
+    body .menu {
+        bottom: 0;
+        background: white;
+        text-align: center;
+    }
+    body .menu .menu-content {
+        height: 100vh;
+    }
+    
+    body .menu .menu-content,
+    body .menu .menu-content ul{
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .menu-spacing {
+        height: 0;
+    }
+
+    .menu{
+        display: none;
+    }
+
+    body .close-menu {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        left: 0;
+    }
+    body .close-menu-label::after {
+        content: '☰';
+        position: fixed;
+        z-index: 20;
+        top: 2rem;
+        right: 2rem;
+        color: var(--color-blue-ciano);
+        font-size: 4rem;
+        line-height: 4rem;
+        width: 4rem;
+        height: 4rem;
+        text-align: center;
+        cursor: pointer;
+        font-style: normal;
+        border: 0.1rem solid var(--color-main-shadowed);
+    }
+    .close-menu:checked~.menu {
+        display: block;
+    }
+
+    .close-menu:checked~.close-menu-label::after {
+        font-style: normal;
+        content: '×';
+    }
+}
+
+/* Fim media queries */
