@@ -5,5 +5,7 @@
 {% endblock texto %}
 
 {% block blog %} 
-    {% include 'global/partials/postblock.html' %}
+    {% for post in dados %}
+        {% include 'global/partials/postblock.html' %}
+    {% endfor %}
 {% endblock blog %}

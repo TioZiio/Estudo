@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from blog.data import posts
 
 def blog(request):
     print('Prompt This')
 
     variavel_qualquer = {
         'text': 'Enviado da view blog',
-        'title': 'Bloguinho - '
+        'title': 'Bloguinho - ',
+        'dados': posts
     }
 
     return render(

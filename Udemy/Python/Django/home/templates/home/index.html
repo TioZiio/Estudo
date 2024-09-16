@@ -4,6 +4,10 @@
     {{ text }}
 {% endblock texto %}
 
-{% block home %} 
-    {% include 'global/partials/postblock.html' %}
+{% block home %}
+    {% if dados %}
+        {% include 'global/partials/postblock.html' %}
+    {% else %}
+        <h1>HOME</h1>
+    {% endif %}
 {% endblock home %}

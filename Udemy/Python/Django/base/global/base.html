@@ -10,12 +10,14 @@
 </head>
 <body>
     {% include 'global/partials/menu.html' %}
-    <h1>{% block texto %} FRASE AQUI {% endblock texto %}</h1>
+    {% if text %}
+        <h1>{% block texto %} FRASE AQUI {% endblock texto %}</h1>
+    {% endif %}
     {% include 'global/partials/nome.html' %}
-    <div class="content">
+    <main class="content">
         {% block home %}{% endblock home %}
         {% block blog %}{% endblock blog %}
-    </div>
+    </main>
     
 </body>
 </html>
