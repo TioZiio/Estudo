@@ -28,7 +28,7 @@ mysql_data
 *.db
 *.png
 *.jpeg
-
+*db.sqlite3
 # Configurações de IDE e Ferramentas
 *.vscode
 
