@@ -1,0 +1,40 @@
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 25px;
+    list-style: none;
+    padding: 10px;
+    background: black;
+    color: blue;
+}
+
+a {
+    text-decoration: none;
+}
+
+body > div {
+    margin-top: 20px;
+}
+
+.post_title {
+    text-align: center;
+    font-size: 40px;
+}
+
+.post_body {
+    font-size: 20px;
+}

@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {{ title }} TioZiio</title>
 
-    <link rel="stylesheet" href="{% static 'global/css/escurinho.css' %}">
+    <link rel="stylesheet" href="{% static 'global/css/styles.css' %}">
 
 </head>
 <body>
+    {% include 'global/partials/menu.html' %}
     <h1>{% block texto %} FRASE AQUI {% endblock texto %}</h1>
     {% include 'global/partials/nome.html' %}
+    <div class="content">
+        {% block home %}{% endblock home %}
+        {% block blog %}{% endblock blog %}
+    </div>
+    
 </body>
 </html>
