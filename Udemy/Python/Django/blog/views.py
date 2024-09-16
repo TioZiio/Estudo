@@ -29,3 +29,18 @@ def exemplo(request):
         'blog/exemplo.html',
         variavel_qualquer
     )
+
+def post(request, id):
+    print('Prompt This')
+
+    variavel_qualquer = {
+        'text': 'Enviado do view blog/post, precisa de um <id>',
+        'title': 'Bloguinho - ',
+        'dados': posts,
+    }
+
+    return render(
+        request,
+        'blog/index.html',
+        variavel_qualquer
+    )
