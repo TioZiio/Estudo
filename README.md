@@ -9,5 +9,6 @@ Objetivo:
 
 1. Aprender JavaScript
 2. Aprender Django
+3. Aprender Docker
 3. Linux (Enterprise)
 4. Conceitos/sistemas/softwares da área de Segurança.
