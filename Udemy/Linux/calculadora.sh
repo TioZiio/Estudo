@@ -82,7 +82,7 @@ function calculadora_calculo_simples()
 }
 
 function calculadora_complexa()
-    # Recebe a operação do Usuário
+    # Recebe a operação do Usuário.
     # Durante o estudo, percebi que o BC não trabalha com operações que tenha  colchete [];
 {
     echo 'Digite a expressão matemática'
