@@ -7,8 +7,14 @@ Todos os projetos aqui colocados, tem como objetivo treinar lógica de programa�
 
 Objetivo:
 
-1. Aprender JavaScript
-2. Aprender Django
-3. Aprender Docker
-3. Linux (Enterprise)
-4. Conceitos/sistemas/softwares da área de Segurança.
+1. JavaScript
+2. Django (Concluído)  
+3. Docker (Concluído)  
+4. Linux (Enterprise)
+5. TDD  
+6. Padrões de Projeto 
+7. Pandas (Concluído)
+8. NumPy (Concluído)
+9. SQL (+/-)
+10. C/Assembly (+/-)
+11. Conceitos/sistemas/softwares da área de Segurança
