@@ -31,7 +31,7 @@ class TestBaconComOvos(unittest.TestCase):
                     msg=f'\n\t{v} não retornou {saida}!!!')
 
     def test_bacon_com_ovos_return_fica_com_fome_se_not_multiplo_de_3_e_5(self):
-        entradas = (1,9,10,20)
+        entradas = (1,2,4,7,8)
         saida = 'Fica com fome'
 
         for v in entradas:
@@ -41,5 +41,26 @@ class TestBaconComOvos(unittest.TestCase):
                     saida.upper(),
                     msg=f'\n\tCom {v} voce {saida}!!!')
 
+    def test_bacon_com_ovos_return_bacon_se_multiplo_de_3(self):
+        entradas = (3,6,9,12)
+        saida = 'Bacon'
+
+        for v in entradas:
+            with self.subTest(entrada=v, saida=saida):
+                self.assertEqual(
+                    bacon_com_ovos(v).upper(),
+                    saida.upper(),
+                    msg=f'\n\tCom {v} voce come {saida}')
+
+    def test_bacon_com_ovos_return_ovos_se_multiplo_de_5(self):
+        entradas = (5,10,20,25)
+        saida = 'ovos'
+
+        for v in entradas:
+            with self.subTest(entrada=v, saida=saida):
+                self.assertEqual(
+                    bacon_com_ovos(v).upper(),
+                    saida.upper(),
+                    msg=f'\n\tCom {v} voce come {saida}')
 
 unittest.main(verbosity=2)
