@@ -18,6 +18,7 @@ Este repositório é o meu principal espaço de aprendizado, onde concentro proj
 ### 🔹 **Banco de Dados**
 - MySQL
 - SQLite3
+- PostgreSQL
 
 ### 🔹 **Frameworks e Bibliotecas**
 - Django
@@ -46,6 +47,14 @@ Este repositório é o meu principal espaço de aprendizado, onde concentro proj
 ### 🔹 **Web Scraping e Requisições**
 - BeautifulSoup
 - requests
+
+### 🔹 **Outras Ferramentas**
+
+- Bash (Scripts)
+- Command Prompt
+- HTML
+- CSS
+- JavaScript
 
 ---
 
