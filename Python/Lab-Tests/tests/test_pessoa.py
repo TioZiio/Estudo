@@ -1,6 +1,20 @@
+try:
+    import sys
+    import os
+
+    sys.path.append(
+        os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__), '../src'
+            )
+        )
+    )
+except:
+    raise 'Não funciono'
+
 import unittest
 from unittest.mock import patch
-from Pessoas import Pessoa
+from pessoa import Pessoa
 
 class TestPessoa(unittest.TestCase):
     def setUp(self):

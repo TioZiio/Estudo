@@ -1,3 +1,17 @@
+try:
+    import sys
+    import os
+
+    sys.path.append(
+        os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__), '../src'
+            )
+        )
+    )
+except:
+    raise 'Não funciono'
+
 import unittest
 from doctest_calculadora import soma
 
@@ -29,4 +43,5 @@ class TestCalculadora(unittest.TestCase):
         with self.assertRaises(TypeError):
             soma(2,'a')
 
-unittest.main(verbosity=2)
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
