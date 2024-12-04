@@ -1,25 +1,59 @@
-# Estudo
-Meu nome é David Mendes, sou estudante de programação e estou cursando Tecnólogo em Segurança da Informação.
-Atualmente estou no 3° semestre e formo por volta de 08/2025.
+# 📚 Repositório de Estudos — David Mendes
 
-Meus estudos estão sendo focados para backend e analise de dados, com visão de trabalhar nestas áreas.
-Todos os projetos aqui colocados, tem como objetivo treinar lógica de programação.
+Olá! Meu nome é **David Mendes**, sou estudante de programação e atualmente estou cursando **Tecnólogo em Segurança da Informação** (3º semestre), com previsão de conclusão em **agosto de 2025**.
 
-Estudos:
+Este repositório é o meu principal espaço de aprendizado, onde concentro projetos e exercícios para treinar lógica de programação, além de aprofundar meus conhecimentos em backend e análise de dados, áreas nas quais pretendo atuar profissionalmente.
 
-1. MySQL
-2. SQLite3  
-3. Django  
-4. SMTPlib
-5. openpyxl
-6. Decoradores (property,setter) 
-7. High-Order-Functions
-8. Sys, OS, SubProcess, PathLib
-9. argparse
-10. Doctest, TDD
-11. CSV, Json
-12. Pyside6, Qt, Designer-Thread
-13. Tkinter
-14. BeautifulSoup, Request
-15. NumPy
-16. Pandas
+---
+
+## 🚀 Foco dos Estudos
+
+- **Backend Development**
+- **Análise de Dados**
+
+---
+
+## 🛠️ Tecnologias e Ferramentas
+
+### 🔹 **Banco de Dados**
+- MySQL
+- SQLite3
+
+### 🔹 **Frameworks e Bibliotecas**
+- Django
+- BeautifulSoup
+- NumPy
+- Pandas
+- openpyxl
+- Tkinter
+- PySide6 (Qt Designer, Threads)
+
+### 🔹 **Programação e Lógica**
+- Decoradores (property, setter)
+- Funções de Alta Ordem (High-Order Functions)
+- argparse
+- Doctest
+- Test-Driven Development (TDD)
+
+### 🔹 **Módulos do Python**
+- SMTPlib
+- Sys
+- OS
+- Subprocess
+- Pathlib
+- CSV e JSON
+
+### 🔹 **Web Scraping e Requisições**
+- BeautifulSoup
+- requests
+
+---
+
+## 📌 Objetivo
+
+Este repositório tem como propósito registrar meu progresso, consolidar aprendizados e compartilhar projetos que desenvolvi durante meus estudos. Todos os códigos e projetos têm foco em aprimorar a lógica de programação, boas práticas e habilidades nas áreas de backend e análise de dados.
+
+---
+
+**Sinta-se à vontade para explorar o conteúdo e contribuir com sugestões!*
+
