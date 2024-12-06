@@ -51,4 +51,4 @@ venv/
 
 # Ignorar diretórios de cache
 __pycache__/
-
+*cache*
